@@ -919,8 +919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a5abac32cba495eadab8c388828e0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedbackText: {fileID: 0}
-  networkErrorText: {fileID: 0}
+  connectionStatusText: {fileID: 1167960513}
+  networkErrorText: {fileID: 2034717638}
 --- !u!1 &2034717636
 GameObject:
   m_ObjectHideFlags: 0

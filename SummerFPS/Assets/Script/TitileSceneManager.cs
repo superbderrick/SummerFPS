@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 
 public class TitileSceneManager : MonoBehaviourPunCallbacks
 {
-	#region Private Serializable Fields
 
+	public static TitileSceneManager Instance;
+	
+	#region Private Serializable Fields
 	
 	[Tooltip("The Ui Text to inform the user about the connection progress")]
 	[SerializeField]
-	private Text feedbackText;
+	private Text connectionStatusText;
 
 	[Tooltip("The Ui Text to inform Network Erroe message")]
 	[SerializeField]
@@ -22,57 +25,51 @@ public class TitileSceneManager : MonoBehaviourPunCallbacks
 	#endregion
 
 	private string gameVersion = "1";
+	private bool isConnected = false;
 
-
-
-	// Start is called before the first frame update
-	void Start()
-    {
-
-    }
-
+	
     void Awake()
     {
+	    Instance = this;
         PhotonNetwork.AutomaticallySyncScene = true;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.anyKeyDown) 
         {
-            Debug.Log("anyKeyDown inputted");
-
+            Debug.Log("Inputted any keys");
+            
+            connectionStatusText.text = "Connecting";
+            
+			ConnectLobbyRoom();
         }
-
     }
 
     private void ConnectLobbyRoom()
     {
-
+	    Debug.Log("Connecting to Server");
+	    PhotonNetwork.ConnectUsingSettings();
+    }
+    
+    public override void OnConnectedToMaster()
+    {
+	    Debug.Log("Connected to Server");
+	    isConnected = true;
+	    
+	    UpdateUIStatus();
+	    
+	    PhotonNetwork.JoinLobby();
+	    PhotonNetwork.AutomaticallySyncScene = true;
+	    
+	    SceneManager.LoadScene("LobbyScene");
     }
 
-	public void Connect()
-	{
-		// we want to make sure the log is clear everytime we connect, we might have several failed attempted if connection failed.
-		feedbackText.text = "";
-
-		
-		// we check if we are connected or not, we join if we are , else we initiate the connection to the server.
-		if (PhotonNetwork.IsConnected)
-		{
-			// #Critical we need at this point to attempt joining a Random Room. If it fails, we'll get notified in OnJoinRandomFailed() and we'll create one.
-			PhotonNetwork.JoinRandomRoom();
-		}
-		else
-		{
-
-
-
-			// #Critical, we must first and foremost connect to Photon Online Server.
-			PhotonNetwork.ConnectUsingSettings();
-			PhotonNetwork.GameVersion = this.gameVersion;
-		}
-	}
+    private void UpdateUIStatus()
+    {
+	    connectionStatusText.text = "Connected";
+	    
+    }
+    
 
 }
