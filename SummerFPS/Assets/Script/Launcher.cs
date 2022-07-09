@@ -1,4 +1,5 @@
 
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
@@ -9,20 +10,19 @@ namespace Com.LGUplus.Homework.Minifps
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
-    
-    	public static Launcher Instance;
+	    public static Launcher Instance;
     	
     	#region Private Serializable Fields
     	
     	[Tooltip("The Ui Text to inform the user about the connection progress")]
     	[SerializeField]
     	private Text connectionStatusText;
-    
-    	[Tooltip("The Ui Text to inform Network error message")]
-    	[SerializeField]
-    	private Text networkErrorText;
-    
-    
+        
+        [Tooltip("The Ui Text to inform Network error message")]
+        [SerializeField]
+        private Text networkErrorText;
+
+        
     	#endregion
     
     	private string gameVersion = "1";
@@ -39,12 +39,8 @@ namespace Com.LGUplus.Homework.Minifps
         {
             if (Input.anyKeyDown) 
             {
-                Debug.Log("Inputted any keys" + PhotonNetwork.IsConnected);
-                
-                connectionStatusText.text = "Connecting";
-                
-                
-    			Connect();
+	            UpdateConnectionStatus("Connecting");
+	            Connect();
             }
         }
         
@@ -55,7 +51,7 @@ namespace Com.LGUplus.Homework.Minifps
 	        
 	        if (PhotonNetwork.IsConnected)
 	        {
-		        PhotonNetwork.JoinRandomRoom();
+		        PhotonNetwork.JoinLobby();
 	        }
 	        else
 	        {
@@ -67,25 +63,30 @@ namespace Com.LGUplus.Homework.Minifps
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
 	        Debug.Log("OnJoinRandomFailed");
-	        UpdateConnectionStatus(message);
+	        UpdateConnectionStatus("Failed");
+	        UpdateErrorStatus(message);
         }
 
         public override void OnCustomAuthenticationFailed(string debugMessage)
         {
 	        Debug.Log("OnCustomAuthenticationFailed");
-	        UpdateConnectionStatus(debugMessage);
+	        UpdateConnectionStatus("Failed");
+	        UpdateErrorStatus(debugMessage);
         }
         
         public override void OnDisconnected(DisconnectCause cause)
         {
 	        Debug.Log("OnDisconnected");
-	        UpdateConnectionStatus(cause.ToString());
+	        UpdateConnectionStatus("Failed");
+	        UpdateErrorStatus(cause.ToString());
         }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
 	        Debug.Log("OnJoinRoomFailed");
-	        UpdateConnectionStatus(message);
+	        UpdateConnectionStatus("Failed");
+	        UpdateErrorStatus(message);
+	        
         }
 
         public override void OnConnectedToMaster()
@@ -103,7 +104,17 @@ namespace Com.LGUplus.Homework.Minifps
         private void UpdateConnectionStatus(string message)
         {
     	    connectionStatusText.text = message;
-    	    
+        }
+
+        private void UpdateErrorStatus(string message)
+        {
+	        string guideText = "네트워크 문제로 접속 실패";
+	        StringBuilder sb = new StringBuilder();
+
+	        sb.Append(guideText);
+	        sb.Append(message);
+
+	        networkErrorText.text = sb.ToString();
         }
         
         public override void OnJoinedLobby()
