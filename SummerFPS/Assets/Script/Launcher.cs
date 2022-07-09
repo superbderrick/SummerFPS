@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.SceneManagement;
 
-namespace Com.LGUPlus.HomeWork.MINIFPS
+namespace Com.LGUplus.Homework.Minifps
 {
     public class Launcher : MonoBehaviourPunCallbacks
     {
@@ -43,36 +43,65 @@ namespace Com.LGUPlus.HomeWork.MINIFPS
                 
                 connectionStatusText.text = "Connecting";
                 
-    			ConnectLobbyRoom();
+    			Connect();
             }
         }
-    
-        private void ConnectLobbyRoom()
+        
+        
+        public void Connect()
         {
-    	    Debug.Log("Connecting to Server");
-    	    PhotonNetwork.ConnectUsingSettings();
+	        Debug.Log("Connect");
+	        
+	        if (PhotonNetwork.IsConnected)
+	        {
+		        PhotonNetwork.JoinRandomRoom();
+	        }
+	        else
+	        {
+		        PhotonNetwork.GameVersion = gameVersion;
+		        PhotonNetwork.ConnectUsingSettings();
+	        }
+        }
+
+        public override void OnJoinRandomFailed(short returnCode, string message)
+        {
+	        Debug.Log("OnJoinRandomFailed");
+	        UpdateConnectionStatus(message);
+        }
+
+        public override void OnCustomAuthenticationFailed(string debugMessage)
+        {
+	        Debug.Log("OnCustomAuthenticationFailed");
+	        UpdateConnectionStatus(debugMessage);
         }
         
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+	        Debug.Log("OnDisconnected");
+	        UpdateConnectionStatus(cause.ToString());
+        }
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+	        Debug.Log("OnJoinRoomFailed");
+	        UpdateConnectionStatus(message);
+        }
+
         public override void OnConnectedToMaster()
         {
     	    Debug.Log("Connected to Server");
+            
     	    isConnected = true;
     	    
-    	    UpdateUIStatus();
+    	    UpdateConnectionStatus("Connected");
     	    
     	    PhotonNetwork.JoinLobby();
-    	    PhotonNetwork.AutomaticallySyncScene = true;
-    	    
+
         }
-    
-        public override void OnDisconnected(DisconnectCause cause)
+        
+        private void UpdateConnectionStatus(string message)
         {
-    	    
-        }
-    
-        private void UpdateUIStatus()
-        {
-    	    connectionStatusText.text = "Connected";
+    	    connectionStatusText.text = message;
     	    
         }
         
