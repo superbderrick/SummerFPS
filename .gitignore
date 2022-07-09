@@ -9,6 +9,7 @@ SummerFPS/[Bb]uild/
 SummerFPS/[Bb]uilds/
 SummerFPS/[Ll]ogs/
 SummerFPS/[Mm]emoryCaptures/
+SummerFPS/.idea/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
