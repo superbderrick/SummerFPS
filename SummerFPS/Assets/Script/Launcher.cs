@@ -21,7 +21,10 @@ namespace Com.LGUplus.Homework.Minifps
         [Tooltip("The Ui Text to inform Network error message")]
         [SerializeField]
         private Text networkErrorText;
-
+        
+        [Tooltip("The Error Message title")]
+        [SerializeField]
+        private Text networkErrorTitleText;
         
     	#endregion
     
@@ -43,7 +46,6 @@ namespace Com.LGUplus.Homework.Minifps
 	            Connect();
             }
         }
-        
         
         public void Connect()
         {
@@ -108,7 +110,9 @@ namespace Com.LGUplus.Homework.Minifps
 
         private void UpdateErrorStatus(string message)
         {
-	        string guideText = "네트워크 문제로 접속 실패";
+	        string guideText = "네트워크 문제로 접속 실패 \n";
+	        networkErrorTitleText.text = "Error Message : ";
+	        
 	        StringBuilder sb = new StringBuilder();
 
 	        sb.Append(guideText);
