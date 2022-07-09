@@ -39,9 +39,10 @@ namespace Com.LGUplus.Homework.Minifps
         {
             if (Input.anyKeyDown) 
             {
-                Debug.Log("Inputted any keys");
+                Debug.Log("Inputted any keys" + PhotonNetwork.IsConnected);
                 
                 connectionStatusText.text = "Connecting";
+                
                 
     			Connect();
             }
