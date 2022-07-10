@@ -128,34 +128,14 @@ namespace Com.LGUplus.Homework.Minifps
     	    SceneManager.LoadScene("LobbyScene");
     	    Debug.Log("Joined Lobby");
         }
-        
-        public void LeaveRoom()
+
+        public override void OnMasterClientSwitched(Player newMasterClient)
         {
-	        PhotonNetwork.LeaveRoom();
 	        
         }
 
-        public void JoinRoom(RoomInfo info)
-        {
-	        PhotonNetwork.JoinRoom(info.Name);
-	        
-        }
-        
-        public override void OnRoomListUpdate(List<RoomInfo> roomList)
-        {
-	        // foreach(Transform trans in roomListContent)
-	        // {
-		       //  Destroy(trans.gameObject);
-	        // }
-	        //
-	        // for(int i = 0; i < roomList.Count; i++)
-	        // {
-		       //  if(roomList[i].RemovedFromList)
-			      //   continue;
-		       //  Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
-	        // }
-        }
-    
+
+
     }
 }
 

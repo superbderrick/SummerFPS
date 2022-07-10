@@ -7,67 +7,73 @@ using UnityEngine;
 
 public class RoomeManager : MonoBehaviourPunCallbacks
 {
+    public Chibi.Free.Dialog dialog;
     public static RoomeManager Instance;
-    // Start is called before the first frame update
+    
     void Start()
     {
+        Debug.Log("Phonstatus" + PhotonNetwork.IsConnected);
+        Debug.Log("CurrentRoom" + PhotonNetwork.CurrentRoom);
+        Debug.Log("InLobby" + PhotonNetwork.InLobby);
+        
         
     }
     
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
         Debug.Log("OnRoomListUpdate size: " + roomList.Count);
-        // foreach(Transform trans in roomListContent)
-        // {
-        //     Destroy(trans.gameObject);
-        // }
-        //
-        // for(int i = 0; i < roomList.Count; i++)
-        // {
-        //     if(roomList[i].RemovedFromList)
-        //         continue;
-        //     Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
-        // }
     }
     
     public override void OnJoinedRoom()
     {
-        // MenuManager.Instance.OpenMenu("room");
-        // roomNameText.text = PhotonNetwork.CurrentRoom.Name;
-        //
-        // Player[] players = PhotonNetwork.PlayerList;
-        //
-        // foreach(Transform child in playerListContent)
-        // {
-        //     Destroy(child.gameObject);
-        // }
-        //
-        // for(int i = 0; i < players.Count(); i++)
-        // {
-        //     Instantiate(PlayerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
-        // }
-        //
-        // startGameButton.SetActive(PhotonNetwork.IsMasterClient);
+        Debug.Log("OnJoinedRoom ");
+    }
+
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("OnCreatedRoom " );
     }
     
+    private void ShowRoomDialog()
+    {
+        var cancel = new Chibi.Free.Dialog.ActionButton("Cancel", null, new Color(0.9f, 0.9f, 0.9f));
+        var ok = new Chibi.Free.Dialog.ActionButton("OK", () =>
+        {
+            PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 4});
+            
+        }, new Color(0f, 0.9f, 0.9f));
+        Chibi.Free.Dialog.ActionButton[] buttons = { cancel, ok };
+        dialog.ShowDialog("Summer FPS Game", "새로운 방을 만들겠습니까?", buttons, () =>
+        {
+            
+        }, true);
+    }
     public void CreateRoom()
     {
-        // if(string.IsNullOrEmpty(roomNameInputField.text))
-        // {
-        //     return;
-        // }
-        // PhotonNetwork.CreateRoom(roomNameInputField.text);
-        // MenuManager.Instance.OpenMenu("loading");
+        ShowRoomDialog();
+    }
+    
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        Debug.Log("Room Creation Failed: " + message);
     }
     
     void Awake()
     {
         Instance = this;
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    public void LeaveRoom()
     {
-        
+        PhotonNetwork.LeaveRoom();
+	        
     }
+
+    public void JoinRoom(RoomInfo info)
+    {
+        PhotonNetwork.JoinRoom(info.Name);
+	        
+    }
+        
+    
 }
