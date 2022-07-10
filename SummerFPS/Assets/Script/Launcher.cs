@@ -1,12 +1,12 @@
 
 
-using System;
+
 using System.Text;
+using Com.LGUplus.Homework.Minifps.Utills;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.SceneManagement;
 
 namespace Com.LGUplus.Homework.Minifps
 {
@@ -51,7 +51,7 @@ namespace Com.LGUplus.Homework.Minifps
         {
 	        if (PhotonNetwork.IsConnected)
 	        {
-		        SceneManager.LoadScene("LobbyScene");
+		        CommonUtils.LoadScene("LobbyScene");
 	        }
 	        else
 	        {
@@ -62,12 +62,11 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnConnectedToMaster()
         {
-	        SceneManager.LoadScene("LobbyScene");
+	        CommonUtils.LoadScene("LobbyScene");
         }
         
         public override void OnDisconnected(DisconnectCause cause)
         {
-	        Debug.Log("OnDisconnected");
 	        UpdateConnectionStatus("Failed");
 	        UpdateErrorStatus(cause.ToString());
         }
@@ -83,7 +82,6 @@ namespace Com.LGUplus.Homework.Minifps
 	        networkErrorTitleText.text = "Error Message : ";
 	        
 	        StringBuilder sb = new StringBuilder();
-
 	        sb.Append(guideText);
 	        sb.Append(message);
 
