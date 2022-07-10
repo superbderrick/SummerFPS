@@ -18,9 +18,7 @@ namespace Photon.Pun.Demo.Asteroids
 
         public InputField RoomNameInputField;
         public InputField MaxPlayersInputField;
-
         
-
         [Header("Room List Panel")]
         public GameObject RoomListPanel;
 
@@ -45,7 +43,6 @@ namespace Photon.Pun.Demo.Asteroids
 
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListEntries = new Dictionary<string, GameObject>();
-            
         }
 
         #endregion
@@ -55,7 +52,6 @@ namespace Photon.Pun.Demo.Asteroids
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
             ClearRoomListView();
-
             UpdateCachedRoomList(roomList);
             UpdateRoomListView();
         }
@@ -83,9 +79,7 @@ namespace Photon.Pun.Demo.Asteroids
         {
             SetActivePanel(SelectionPanel.name);
         }
-
         
-
         public override void OnJoinedRoom()
         {
             // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
@@ -217,22 +211,7 @@ namespace Photon.Pun.Demo.Asteroids
         {
             PhotonNetwork.LeaveRoom();
         }
-
-        public void OnLoginButtonClicked()
-        {
-            // string playerName = PlayerNameInput.text;
-            //
-            // if (!playerName.Equals(""))
-            // {
-            //     PhotonNetwork.LocalPlayer.NickName = playerName;
-            //     PhotonNetwork.ConnectUsingSettings();
-            // }
-            // else
-            // {
-            //     Debug.LogError("Player Name is invalid.");
-            // }
-        }
-
+        
         public void OnRoomListButtonClicked()
         {
             if (!PhotonNetwork.InLobby)

@@ -63,7 +63,6 @@ namespace Com.LGUplus.Homework.Minifps
         public override void OnConnectedToMaster()
         {
 	        SceneManager.LoadScene("LobbyScene");
-				
         }
         
         public override void OnDisconnected(DisconnectCause cause)
