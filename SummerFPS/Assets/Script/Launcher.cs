@@ -1,5 +1,6 @@
 
-using System.Collections.Generic;
+
+using System;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,10 +31,7 @@ namespace Com.LGUplus.Homework.Minifps
     	#endregion
     
     	private string gameVersion = "1";
-    	private bool isConnected = false;
         
-   
-    	
         void Awake()
         {
 	        Instance = this;
@@ -51,8 +49,6 @@ namespace Com.LGUplus.Homework.Minifps
         
         public void Connect()
         {
-	        Debug.Log("Connect");
-	        
 	        if (PhotonNetwork.IsConnected)
 	        {
 		        PhotonNetwork.JoinLobby();
@@ -64,18 +60,24 @@ namespace Com.LGUplus.Homework.Minifps
 	        }
         }
 
+        private void OnConnectedToServer()
+        {
+	        if (PhotonNetwork.IsConnected)
+	        {
+		        SceneManager.LoadScene("LobbyScene");
+	        }
+	        else
+	        {
+		        // Error handling
+	        }
+				
+        }
+
         public override void OnJoinRandomFailed(short returnCode, string message)
         {
 	        Debug.Log("OnJoinRandomFailed");
 	        UpdateConnectionStatus("Failed");
 	        UpdateErrorStatus(message);
-        }
-
-        public override void OnCustomAuthenticationFailed(string debugMessage)
-        {
-	        Debug.Log("OnCustomAuthenticationFailed");
-	        UpdateConnectionStatus("Failed");
-	        UpdateErrorStatus(debugMessage);
         }
         
         public override void OnDisconnected(DisconnectCause cause)
@@ -83,26 +85,6 @@ namespace Com.LGUplus.Homework.Minifps
 	        Debug.Log("OnDisconnected");
 	        UpdateConnectionStatus("Failed");
 	        UpdateErrorStatus(cause.ToString());
-        }
-
-        public override void OnJoinRoomFailed(short returnCode, string message)
-        {
-	        Debug.Log("OnJoinRoomFailed");
-	        UpdateConnectionStatus("Failed");
-	        UpdateErrorStatus(message);
-	        
-        }
-
-        public override void OnConnectedToMaster()
-        {
-    	    Debug.Log("Connected to Server");
-            
-    	    isConnected = true;
-    	    
-    	    UpdateConnectionStatus("Connected");
-    	    
-    	    PhotonNetwork.JoinLobby();
-
         }
         
         private void UpdateConnectionStatus(string message)
@@ -122,19 +104,6 @@ namespace Com.LGUplus.Homework.Minifps
 
 	        networkErrorText.text = sb.ToString();
         }
-        
-        public override void OnJoinedLobby()
-        {
-    	    SceneManager.LoadScene("LobbyScene");
-    	    Debug.Log("Joined Lobby");
-        }
-
-        public override void OnMasterClientSwitched(Player newMasterClient)
-        {
-	        
-        }
-
-
 
     }
 }
