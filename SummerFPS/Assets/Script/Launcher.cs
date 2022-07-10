@@ -60,19 +60,11 @@ namespace Com.LGUplus.Homework.Minifps
 	        }
         }
 
-        private void OnConnectedToServer()
+        public override void OnConnectedToMaster()
         {
-	        if (PhotonNetwork.IsConnected)
-	        {
-		        SceneManager.LoadScene("LobbyScene");
-	        }
-	        else
-	        {
-		        // Error handling
-	        }
+	        SceneManager.LoadScene("LobbyScene");
 				
         }
-        
         
         public override void OnDisconnected(DisconnectCause cause)
         {
