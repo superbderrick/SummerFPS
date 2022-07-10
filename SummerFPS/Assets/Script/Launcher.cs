@@ -51,7 +51,7 @@ namespace Com.LGUplus.Homework.Minifps
         {
 	        if (PhotonNetwork.IsConnected)
 	        {
-		        PhotonNetwork.JoinLobby();
+		        SceneManager.LoadScene("LobbyScene");
 	        }
 	        else
 	        {
@@ -72,13 +72,7 @@ namespace Com.LGUplus.Homework.Minifps
 	        }
 				
         }
-
-        public override void OnJoinRandomFailed(short returnCode, string message)
-        {
-	        Debug.Log("OnJoinRandomFailed");
-	        UpdateConnectionStatus("Failed");
-	        UpdateErrorStatus(message);
-        }
+        
         
         public override void OnDisconnected(DisconnectCause cause)
         {
