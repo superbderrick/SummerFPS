@@ -1,4 +1,5 @@
 
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,12 +31,29 @@ namespace Com.LGUplus.Homework.Minifps
     
     	private string gameVersion = "1";
     	private bool isConnected = false;
+        
+        // [SerializeField] TMP_InputField roomNameInputField;
+        // [SerializeField] TMP_Text errorText;
+        // [SerializeField] TMP_Text roomNameText;
+        [SerializeField] Transform roomListContent;
+        [SerializeField] GameObject roomListItemPrefab;
+        [SerializeField] Transform playerListContent;
+        [SerializeField] GameObject PlayerListItemPrefab;
+        [SerializeField] GameObject startGameButton;
     
     	
         void Awake()
         {
-    	    Instance = this;
+    	 
             PhotonNetwork.AutomaticallySyncScene = true;
+            
+            if (Instance != null)
+            {
+	            Destroy(gameObject);
+	            return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         
         void Update()
@@ -125,6 +143,33 @@ namespace Com.LGUplus.Homework.Minifps
         {
     	    SceneManager.LoadScene("LobbyScene");
     	    Debug.Log("Joined Lobby");
+        }
+        
+        public void LeaveRoom()
+        {
+	        PhotonNetwork.LeaveRoom();
+	        
+        }
+
+        public void JoinRoom(RoomInfo info)
+        {
+	        PhotonNetwork.JoinRoom(info.Name);
+	        
+        }
+        
+        public override void OnRoomListUpdate(List<RoomInfo> roomList)
+        {
+	        // foreach(Transform trans in roomListContent)
+	        // {
+		       //  Destroy(trans.gameObject);
+	        // }
+	        //
+	        // for(int i = 0; i < roomList.Count; i++)
+	        // {
+		       //  if(roomList[i].RemovedFromList)
+			      //   continue;
+		       //  Instantiate(roomListItemPrefab, roomListContent).GetComponent<RoomListItem>().SetUp(roomList[i]);
+	        // }
         }
     
     }

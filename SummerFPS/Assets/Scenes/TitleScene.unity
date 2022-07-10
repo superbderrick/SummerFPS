@@ -681,6 +681,57 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1167960511}
   m_CullTransparentMesh: 1
+--- !u!1 &1476842581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1476842583}
+  - component: {fileID: 1476842582}
+  m_Layer: 0
+  m_Name: GameOperation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1476842582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476842581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16a5abac32cba495eadab8c388828e0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  connectionStatusText: {fileID: 1167960513}
+  networkErrorText: {fileID: 2034717638}
+  networkErrorTitleText: {fileID: 417955215}
+  roomListContent: {fileID: 0}
+  roomListItemPrefab: {fileID: 0}
+  playerListContent: {fileID: 0}
+  PlayerListItemPrefab: {fileID: 0}
+  startGameButton: {fileID: 0}
+--- !u!4 &1476842583
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476842581}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 732.9659, y: 932.305, z: -268.32306}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645634042
 GameObject:
   m_ObjectHideFlags: 0
@@ -814,7 +865,6 @@ GameObject:
   - component: {fileID: 1916227252}
   - component: {fileID: 1916227251}
   - component: {fileID: 1916227250}
-  - component: {fileID: 1916227254}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -907,21 +957,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1916227254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916227249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a5abac32cba495eadab8c388828e0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  connectionStatusText: {fileID: 1167960513}
-  networkErrorText: {fileID: 2034717638}
-  networkErrorTitleText: {fileID: 417955215}
 --- !u!1 &2034717636
 GameObject:
   m_ObjectHideFlags: 0
