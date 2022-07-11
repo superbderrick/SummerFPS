@@ -25,13 +25,13 @@ namespace Photon.Pun.Demo.Asteroids
             });
         }
 
-        public void Initialize(string name, byte currentPlayers, byte maxPlayers)
+        public void Initialize(string name, byte currentPlayers, byte maxPlayers , string gameStatus)
         {
             roomName = name;
 
             RoomNameText.text = name;
             RoomPlayersText.text = currentPlayers + " / " + maxPlayers;
-            RoomStatusText.text = "hello";
+            RoomStatusText.text = gameStatus;
         }
     }
 }
