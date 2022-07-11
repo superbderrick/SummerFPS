@@ -8,7 +8,8 @@ namespace Photon.Pun.Demo.Asteroids
         public Text RoomNameText;
         public Text RoomPlayersText;
         public Button JoinRoomButton;
-
+        public Text RoomStatusText;
+        
         private string roomName;
 
         public void Start()
@@ -30,6 +31,7 @@ namespace Photon.Pun.Demo.Asteroids
 
             RoomNameText.text = name;
             RoomPlayersText.text = currentPlayers + " / " + maxPlayers;
+            RoomStatusText.text = "hello";
         }
     }
 }
