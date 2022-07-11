@@ -1643,7 +1643,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 340491866}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.9999999
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2080,7 +2080,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SelectionPanel: {fileID: 1771933899}
-  CreateRoomPanel: {fileID: 0}
   RoomNameInputField: {fileID: 0}
   MaxPlayersInputField: {fileID: 0}
   RoomListPanel: {fileID: 953796484}
@@ -2911,8 +2910,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 972.19775, y: -440}
-  m_SizeDelta: {x: 1344.3955, y: 680}
+  m_AnchoredPosition: {x: 960, y: -270.5}
+  m_SizeDelta: {x: 1320, y: 341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953198249
 MonoBehaviour:

@@ -12,12 +12,6 @@ namespace Photon.Pun.Demo.Asteroids
     {
         [Header("Selection Panel")]
         public GameObject SelectionPanel;
-
-        [Header("Create Room Panel")]
-       // public GameObject CreateRoomPanel;
-
-        public InputField RoomNameInputField;
-        public InputField MaxPlayersInputField;
         
         [Header("Room List Panel")]
         public GameObject RoomListPanel;
@@ -310,7 +304,6 @@ namespace Photon.Pun.Demo.Asteroids
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers);
-
                 roomListEntries.Add(info.Name, entry);
             }
         }
