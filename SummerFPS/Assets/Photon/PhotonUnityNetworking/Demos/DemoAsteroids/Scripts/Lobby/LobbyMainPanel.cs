@@ -196,8 +196,8 @@ namespace Photon.Pun.Demo.Asteroids
         public void OnCreateRoomButtonClicked()
         {
             RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
-
-            PhotonNetwork.CreateRoom(null, options, null);
+            
+            PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
         
         public void OnLeaveGameButtonClicked()
