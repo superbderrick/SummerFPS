@@ -195,16 +195,9 @@ namespace Photon.Pun.Demo.Asteroids
 
         public void OnCreateRoomButtonClicked()
         {
-            string roomName = RoomNameInputField.text;
-            roomName = (roomName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : roomName;
+            RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
 
-            byte maxPlayers;
-            byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
-            maxPlayers = (byte) Mathf.Clamp(maxPlayers, 2, 8);
-
-            RoomOptions options = new RoomOptions {MaxPlayers = maxPlayers, PlayerTtl = 10000 };
-
-            PhotonNetwork.CreateRoom(roomName, options, null);
+            PhotonNetwork.CreateRoom(null, options, null);
         }
         
         public void OnLeaveGameButtonClicked()
