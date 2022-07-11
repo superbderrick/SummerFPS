@@ -82,7 +82,8 @@ namespace Photon.Pun.Demo.Asteroids
         
         public override void OnJoinedRoom()
         {
-            // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
+            // joining (or entering) a room invalidates any cached lobby room list
+            // (even if LeaveLobby was not called due to just joining a room)
             cachedRoomList.Clear();
 
 
