@@ -31,6 +31,12 @@ namespace Com.LGUplus.Homework.Minifps
     	#endregion
     
     	private string gameVersion = "1";
+        private bool isConnected = false;
+        
+        private static string NETWORK_STATE_CONNECTED = "Connected";
+        private static string NETWORK_STATE_DISCONNECTED = "DisConnected";
+        private static string NETWORK_STATE_CONNECTING = "Connecting";
+        private static string ERRORMESSAGETEXT_TITLE = "Error Message :" ;
         
         void Awake()
         {
@@ -42,8 +48,16 @@ namespace Com.LGUplus.Homework.Minifps
         {
             if (Input.anyKeyDown) 
             {
-	            UpdateConnectionStatus("Connecting");
-	            Connect();
+	            UpdateConnectionStatus(NETWORK_STATE_CONNECTING);
+	            if (!isConnected)
+	            {
+		            Connect();    
+	            }
+	            else
+	            {
+		            Debug.Log("Connecting to Server");
+	            }
+	            
             }
         }
         
@@ -62,12 +76,15 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnConnectedToMaster()
         {
+	        isConnected = true;
+	        UpdateConnectionStatus(NETWORK_STATE_CONNECTED);
 	        CommonUtils.LoadScene("LobbyScene");
         }
         
         public override void OnDisconnected(DisconnectCause cause)
         {
-	        UpdateConnectionStatus("Failed");
+	        isConnected = false;
+	        UpdateConnectionStatus(NETWORK_STATE_DISCONNECTED);
 	        UpdateErrorStatus(cause.ToString());
         }
         
@@ -78,16 +95,9 @@ namespace Com.LGUplus.Homework.Minifps
 
         private void UpdateErrorStatus(string message)
         {
-	        string guideText = "네트워크 문제로 접속 실패 \n";
-	        networkErrorTitleText.text = "Error Message : ";
-	        
-	        StringBuilder sb = new StringBuilder();
-	        sb.Append(guideText);
-	        sb.Append(message);
-
-	        networkErrorText.text = sb.ToString();
+	        networkErrorTitleText.text = ERRORMESSAGETEXT_TITLE;
+	        networkErrorText.text = CommonUtils.GetErrorMessage(message);
         }
-
     }
 }
 

@@ -3,6 +3,7 @@ using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -345,6 +346,11 @@ namespace Photon.Pun.Demo.Asteroids
                 
                 roomListEntries.Add(info.Name, entry);
             }
+        }
+
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            SceneManager.LoadScene("TitleScene");
         }
     }
 }
