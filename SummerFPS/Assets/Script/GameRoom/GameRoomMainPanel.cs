@@ -6,7 +6,6 @@ using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Com.LGUplus.Homework.Minifps
@@ -28,14 +27,18 @@ namespace Com.LGUplus.Homework.Minifps
             PhotonNetwork.AutomaticallySyncScene = true;
         }
 
-        #endregion
+        private void Start()
+        {
+            if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom)
+            {
+                SetupList();
+            }
+        }
 
-        #region PUN CALLBACKS
-        
-        public override void OnJoinedRoom()
+        private void SetupList()
         {
             RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;
-            
+
             if (playerListEntries == null)
             {
                 playerListEntries = new Dictionary<int, GameObject>();
@@ -46,13 +49,14 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(PlayerListEntryPrefab);
                 entry.transform.SetParent(InsideRoomPanel.transform);
                 entry.transform.localScale = Vector3.one;
-                entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+                entry.GetComponent<SummerPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
 
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
                 {
-                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
+                    entry.GetComponent<SummerPlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
                 }
+
                 playerListEntries.Add(p.ActorNumber, entry);
             }
 
@@ -60,9 +64,18 @@ namespace Com.LGUplus.Homework.Minifps
 
             Hashtable props = new Hashtable
             {
-                {AsteroidsGame.PLAYER_LOADED_LEVEL, false}
+                { AsteroidsGame.PLAYER_LOADED_LEVEL, false }
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+        }
+
+        #endregion
+
+        #region PUN CALLBACKS
+        
+        public override void OnJoinedRoom()
+        {
+           
         }
 
         public override void OnLeftRoom()
@@ -84,7 +97,7 @@ namespace Com.LGUplus.Homework.Minifps
             GameObject entry = Instantiate(PlayerListEntryPrefab);
             entry.transform.SetParent(InsideRoomPanel.transform);
             entry.transform.localScale = Vector3.one;
-            entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
+            entry.GetComponent<SummerPlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
 
             playerListEntries.Add(newPlayer.ActorNumber, entry);
 
@@ -120,7 +133,7 @@ namespace Com.LGUplus.Homework.Minifps
                 object isPlayerReady;
                 if (changedProps.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
                 {
-                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
+                    entry.GetComponent<SummerPlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
                 }
             }
 

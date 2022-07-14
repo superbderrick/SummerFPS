@@ -542,9 +542,9 @@ GameObject:
   - component: {fileID: 11475786}
   - component: {fileID: 11493046}
   - component: {fileID: 11413184}
-  - component: {fileID: 11475118}
+  - component: {fileID: 4044373800930505759}
   m_Layer: 5
-  m_Name: PlayerListEntry
+  m_Name: SummerPlayerListEntry
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -658,7 +658,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: 0
   m_LayoutPriority: 1
---- !u!114 &11475118
+--- !u!114 &4044373800930505759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -667,7 +667,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 195212}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b92420fa27b32d43a6a35af7781c5d8, type: 3}
+  m_Script: {fileID: 11500000, guid: 972469579d9dd419299a84b7d5a7234d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerNameText: {fileID: 11470916}

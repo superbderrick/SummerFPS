@@ -19,7 +19,7 @@ using Photon.Pun.UtilityScripts;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class PlayerListEntry : MonoBehaviour
+    public class SummerPlayerListEntry : MonoBehaviour
     {
         [Header("UI References")]
         public Text PlayerNameText;
