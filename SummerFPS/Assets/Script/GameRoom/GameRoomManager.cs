@@ -108,10 +108,11 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
-            if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
-            {
-                StartGameButton.gameObject.SetActive(CheckPlayersReady());
-            }
+            PhotonNetwork.LeaveRoom();
+            // if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
+            // {
+            //     StartGameButton.gameObject.SetActive(CheckPlayersReady());
+            // }
         }
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
