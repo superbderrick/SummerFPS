@@ -17,6 +17,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public Button StartGameButton;
         public Button RoomNameButton;
+        
         public GameObject PlayerListEntryPrefab;
         private Dictionary<int, GameObject> playerListEntries;
 
@@ -29,7 +30,6 @@ namespace Com.LGUplus.Homework.Minifps
 
         private void Start()
         {
-            Debug.Log("Start");
             SetupList();
         }
         
@@ -74,7 +74,6 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnLeftRoom()
         {
-            
             foreach (GameObject entry in playerListEntries.Values)
             {
                 Destroy(entry.gameObject);
@@ -109,10 +108,6 @@ namespace Com.LGUplus.Homework.Minifps
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
             PhotonNetwork.LeaveRoom();
-            // if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
-            // {
-            //     StartGameButton.gameObject.SetActive(CheckPlayersReady());
-            // }
         }
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -148,7 +143,15 @@ namespace Com.LGUplus.Homework.Minifps
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
             PhotonNetwork.CurrentRoom.IsVisible = true;
-            PhotonNetwork.LoadLevel("GameScene");
+            
+            Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
+
+            print(CP["키1"]);
+
+            CP["키1"] = "summerderrick";
+           
+            
+            PhotonNetwork.LoadLevel("TargetGame");
         }
 
         #endregion
