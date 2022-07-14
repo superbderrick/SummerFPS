@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class GameRoomMainPanel : MonoBehaviourPunCallbacks
+    public class GameRoomManager : MonoBehaviourPunCallbacks
     {
         [Header("Inside Room Panel")]
         public GameObject InsideRoomPanel;
@@ -32,18 +32,7 @@ namespace Com.LGUplus.Homework.Minifps
             Debug.Log("Start");
             SetupList();
         }
-
-        public override void OnCreatedRoom()
-        {
-            Debug.Log("OnCreatedRoom");
-        }
         
-        public override void OnJoinedRoom()
-        {
-            Debug.Log("OnCreatedRoom");
-         
-        }
-
         private void SetupList()
         {
             RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;

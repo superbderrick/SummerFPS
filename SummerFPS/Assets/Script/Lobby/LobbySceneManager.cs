@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class LobbyMainPanel : MonoBehaviourPunCallbacks
+    public class LobbySceneManager : MonoBehaviourPunCallbacks
     {
         [Header("Selection Panel")]
         public GameObject SelectionPanel;
@@ -154,7 +154,6 @@ namespace Com.LGUplus.Homework.Minifps
                 entry.transform.localScale = Vector3.one;
                 
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
-                
                 
                 roomListEntries.Add(info.Name, entry);
             }
