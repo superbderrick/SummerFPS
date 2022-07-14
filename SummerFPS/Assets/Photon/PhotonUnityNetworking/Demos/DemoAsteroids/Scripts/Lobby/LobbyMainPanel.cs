@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
+
 
 namespace Photon.Pun.Demo.Asteroids
 {
@@ -80,8 +80,7 @@ namespace Photon.Pun.Demo.Asteroids
         
         public override void OnJoinedRoom()
         {
-            // joining (or entering) a room invalidates any cached lobby room list
-            // (even if LeaveLobby was not called due to just joining a room)
+
             cachedRoomList.Clear();
 
             
@@ -205,7 +204,18 @@ namespace Photon.Pun.Demo.Asteroids
         
         public void OnLeaveGameButtonClicked()
         {
-            PhotonNetwork.LeaveRoom();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                //test
+                string test;
+            }
+            else
+            {
+                  //test  
+                  string test;
+            }
+            PhotonNetwork.LeaveRoom();   
+            
         }
         
         public void OnRoomListButtonClicked()
@@ -222,6 +232,7 @@ namespace Photon.Pun.Demo.Asteroids
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
             PhotonNetwork.CurrentRoom.IsVisible = true;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable() { { "C0", value } });
 
             PhotonNetwork.LoadLevel("GameScene");
         }
