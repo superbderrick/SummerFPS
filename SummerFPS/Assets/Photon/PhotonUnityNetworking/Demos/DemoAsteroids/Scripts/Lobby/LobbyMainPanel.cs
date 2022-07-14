@@ -85,7 +85,7 @@ namespace Photon.Pun.Demo.Asteroids
             cachedRoomList.Clear();
 
             
-            RoomNameButton.GetComponentInChildren<Text>().text = PhotonNetwork.CurrentRoom.Name;
+            RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;
             
             SetActivePanel(InsideRoomPanel.name);
 
