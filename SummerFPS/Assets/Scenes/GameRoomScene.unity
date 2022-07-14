@@ -1117,7 +1117,7 @@ MonoBehaviour:
   InsideRoomPanel: {fileID: 1763839781}
   StartGameButton: {fileID: 528968173}
   RoomNameButton: {fileID: 663630054}
-  PlayerListEntryPrefab: {fileID: 1878336002063414184, guid: d11edb5dbb901db49a659dace16ad395, type: 3}
+  PlayerListEntryPrefab: {fileID: 195212, guid: 734db6f5ad5354088b2b156772b6bd57, type: 3}
 --- !u!222 &1310044698
 CanvasRenderer:
   m_ObjectHideFlags: 0
