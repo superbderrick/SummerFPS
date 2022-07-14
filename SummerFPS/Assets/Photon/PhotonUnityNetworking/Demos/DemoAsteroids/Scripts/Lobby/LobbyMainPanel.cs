@@ -3,6 +3,7 @@ using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -12,15 +13,7 @@ namespace Photon.Pun.Demo.Asteroids
     {
         [Header("Selection Panel")]
         public GameObject SelectionPanel;
-
-        [Header("Create Room Panel")]
-        public GameObject CreateRoomPanel;
-
-        public InputField RoomNameInputField;
-        public InputField MaxPlayersInputField;
-
         
-
         [Header("Room List Panel")]
         public GameObject RoomListPanel;
 
@@ -45,7 +38,6 @@ namespace Photon.Pun.Demo.Asteroids
 
             cachedRoomList = new Dictionary<string, RoomInfo>();
             roomListEntries = new Dictionary<string, GameObject>();
-            
         }
 
         #endregion
@@ -54,8 +46,8 @@ namespace Photon.Pun.Demo.Asteroids
         
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
+            Debug.Log("OnRoomListUpdate");
             ClearRoomListView();
-
             UpdateCachedRoomList(roomList);
             UpdateRoomListView();
         }
@@ -70,6 +62,7 @@ namespace Photon.Pun.Demo.Asteroids
         // note: when a client joins / creates a room, OnLeftLobby does not get called, even if the client was in a lobby before
         public override void OnLeftLobby()
         {
+            Debug.Log("OnLeftLobby");
             cachedRoomList.Clear();
             ClearRoomListView();
         }
@@ -83,12 +76,11 @@ namespace Photon.Pun.Demo.Asteroids
         {
             SetActivePanel(SelectionPanel.name);
         }
-
         
-
         public override void OnJoinedRoom()
         {
-            // joining (or entering) a room invalidates any cached lobby room list (even if LeaveLobby was not called due to just joining a room)
+            // joining (or entering) a room invalidates any cached lobby room list
+            // (even if LeaveLobby was not called due to just joining a room)
             cachedRoomList.Clear();
 
 
@@ -201,38 +193,16 @@ namespace Photon.Pun.Demo.Asteroids
 
         public void OnCreateRoomButtonClicked()
         {
-            string roomName = RoomNameInputField.text;
-            roomName = (roomName.Equals(string.Empty)) ? "Room " + Random.Range(1000, 10000) : roomName;
-
-            byte maxPlayers;
-            byte.TryParse(MaxPlayersInputField.text, out maxPlayers);
-            maxPlayers = (byte) Mathf.Clamp(maxPlayers, 2, 8);
-
-            RoomOptions options = new RoomOptions {MaxPlayers = maxPlayers, PlayerTtl = 10000 };
-
-            PhotonNetwork.CreateRoom(roomName, options, null);
+            RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
+            
+            PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
         
         public void OnLeaveGameButtonClicked()
         {
             PhotonNetwork.LeaveRoom();
         }
-
-        public void OnLoginButtonClicked()
-        {
-            // string playerName = PlayerNameInput.text;
-            //
-            // if (!playerName.Equals(""))
-            // {
-            //     PhotonNetwork.LocalPlayer.NickName = playerName;
-            //     PhotonNetwork.ConnectUsingSettings();
-            // }
-            // else
-            // {
-            //     Debug.LogError("Player Name is invalid.");
-            // }
-        }
-
+        
         public void OnRoomListButtonClicked()
         {
             if (!PhotonNetwork.InLobby)
@@ -245,8 +215,8 @@ namespace Photon.Pun.Demo.Asteroids
 
         public void OnStartGameButtonClicked()
         {
-            PhotonNetwork.CurrentRoom.IsOpen = false;
-            PhotonNetwork.CurrentRoom.IsVisible = false;
+            PhotonNetwork.CurrentRoom.IsOpen = true;
+            PhotonNetwork.CurrentRoom.IsVisible = true;
 
             PhotonNetwork.LoadLevel("GameScene");
         }
@@ -279,8 +249,35 @@ namespace Photon.Pun.Demo.Asteroids
             return true;
         }
         
+        private bool CheckPlayingGame()
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                return false;
+            }
+
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                object isPlayerReady;
+                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LOADED_LEVEL, out isPlayerReady))
+                {
+                    if (!(bool) isPlayerReady)
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+        
         private void ClearRoomListView()
         {
+            Debug.Log("ClearRoomListView");
             foreach (GameObject entry in roomListEntries.Values)
             {
                 Destroy(entry.gameObject);
@@ -297,7 +294,6 @@ namespace Photon.Pun.Demo.Asteroids
         private void SetActivePanel(string activePanel)
         {
             SelectionPanel.SetActive(activePanel.Equals(SelectionPanel.name));
-            CreateRoomPanel.SetActive(activePanel.Equals(CreateRoomPanel.name));
             RoomListPanel.SetActive(activePanel.Equals(RoomListPanel.name));    // UI should call OnRoomListButtonClicked() to activate this
             InsideRoomPanel.SetActive(activePanel.Equals(InsideRoomPanel.name));
         }
@@ -306,7 +302,6 @@ namespace Photon.Pun.Demo.Asteroids
         {
             foreach (RoomInfo info in roomList)
             {
-                // Remove room from cached room list if it got closed, became invisible or was marked as removed
                 if (!info.IsOpen || !info.IsVisible || info.RemovedFromList)
                 {
                     if (cachedRoomList.ContainsKey(info.Name))
@@ -316,8 +311,7 @@ namespace Photon.Pun.Demo.Asteroids
 
                     continue;
                 }
-
-                // Update cached room info
+                
                 if (cachedRoomList.ContainsKey(info.Name))
                 {
                     cachedRoomList[info.Name] = info;
@@ -332,15 +326,31 @@ namespace Photon.Pun.Demo.Asteroids
 
         private void UpdateRoomListView()
         {
+            Debug.Log("UpdateRoomListView" + cachedRoomList.Count);
             foreach (RoomInfo info in cachedRoomList.Values)
             {
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
-                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers);
-
+                if (CheckPlayingGame())
+                {
+                    Debug.Log("playing");
+                }
+                else
+                {
+                    Debug.Log("Nope");
+                }
+                
+                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
+                
+                
                 roomListEntries.Add(info.Name, entry);
             }
+        }
+
+        public override void OnDisconnected(DisconnectCause cause)
+        {
+            SceneManager.LoadScene("TitleScene");
         }
     }
 }
