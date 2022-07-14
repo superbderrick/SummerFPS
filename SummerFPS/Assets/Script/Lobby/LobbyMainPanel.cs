@@ -55,6 +55,12 @@ namespace Com.LGUplus.Homework.Minifps
             ClearRoomListView();
         }
 
+        public override void OnCreatedRoom()
+        {
+            
+        }
+        
+
         public override void OnCreateRoomFailed(short returnCode, string message)
         {
             SetActivePanel(SelectionPanel.name);
@@ -62,7 +68,8 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnJoinedRoom()
         {
-            cachedRoomList.Clear();
+             cachedRoomList.Clear();
+           //  CommonUtils.LoadScene("GameRoomScene");
         }
         
         #endregion
@@ -88,12 +95,7 @@ namespace Com.LGUplus.Homework.Minifps
             PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
 
-        public override void OnCreatedRoom()
-        {
-            CommonUtils.LoadScene("GameroomScene");
-        }
-
-
+        
         public void OnRoomListButtonClicked()
         {
             if (!PhotonNetwork.InLobby)

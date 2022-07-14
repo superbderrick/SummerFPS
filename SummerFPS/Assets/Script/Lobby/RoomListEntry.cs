@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using Com.LGUplus.Homework.Minifps.Utills;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,6 +27,7 @@ namespace Com.LGUplus.Homework.Minifps
                     }
                     
                     PhotonNetwork.JoinRoom(roomName);  
+                   
                 }
                 
                 

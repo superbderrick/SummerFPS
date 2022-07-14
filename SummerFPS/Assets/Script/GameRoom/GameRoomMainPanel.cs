@@ -24,14 +24,14 @@ namespace Com.LGUplus.Homework.Minifps
 
         public void Awake()
         {
-            PhotonNetwork.AutomaticallySyncScene = true;
+         //   PhotonNetwork.AutomaticallySyncScene = true;
         }
 
         private void Start()
         {
             if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom)
             {
-                SetupList();
+                
             }
         }
 
@@ -75,7 +75,8 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnJoinedRoom()
         {
-           
+           // CommonUtils.LoadScene("LobbyScene");
+            SetupList();
         }
 
         public override void OnLeftRoom()
