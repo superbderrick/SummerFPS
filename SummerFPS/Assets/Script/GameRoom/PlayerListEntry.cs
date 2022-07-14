@@ -60,7 +60,7 @@ namespace Com.LGUplus.Homework.Minifps
 
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        FindObjectOfType<LobbyMainPanel>().LocalPlayerPropertiesUpdated();
+                       // FindObjectOfType<LobbyMainPanel>().LocalPlayerPropertiesUpdated();
                     }
                 });
             }
