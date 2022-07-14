@@ -1605,9 +1605,6 @@ MonoBehaviour:
   RoomListPanel: {fileID: 953796484}
   RoomListContent: {fileID: 889509550}
   RoomListEntryPrefab: {fileID: 114706, guid: 5471f0809a79a4ddaafa1805860a463a, type: 3}
-  StartGameButton: {fileID: 0}
-  RoomNameButton: {fileID: 0}
-  PlayerListEntryPrefab: {fileID: 195212, guid: 734db6f5ad5354088b2b156772b6bd57, type: 3}
 --- !u!1 &1452023752
 GameObject:
   m_ObjectHideFlags: 0
