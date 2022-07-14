@@ -24,6 +24,7 @@ namespace Photon.Pun.Demo.Asteroids
         public GameObject InsideRoomPanel;
 
         public Button StartGameButton;
+        public Button RoomNameButton;
         public GameObject PlayerListEntryPrefab;
 
         private Dictionary<string, RoomInfo> cachedRoomList;
@@ -83,7 +84,9 @@ namespace Photon.Pun.Demo.Asteroids
             // (even if LeaveLobby was not called due to just joining a room)
             cachedRoomList.Clear();
 
-
+            
+            RoomNameButton.GetComponentInChildren<Text>().text = PhotonNetwork.CurrentRoom.Name;
+            
             SetActivePanel(InsideRoomPanel.name);
 
             if (playerListEntries == null)
