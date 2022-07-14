@@ -2,6 +2,7 @@
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
+using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using UnityEngine;
@@ -74,6 +75,8 @@ namespace Com.LGUplus.Homework.Minifps
 
             playerListEntries.Clear();
             playerListEntries = null;
+            
+            CommonUtils.LoadScene("LobbyScene");
         }
 
         public override void OnPlayerEnteredRoom(Player newPlayer)
@@ -175,7 +178,7 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnDisconnected(DisconnectCause cause)
         {
-            SceneManager.LoadScene("TitleScene");
+            CommonUtils.LoadScene("TitleScene");
         }
     }
 }
