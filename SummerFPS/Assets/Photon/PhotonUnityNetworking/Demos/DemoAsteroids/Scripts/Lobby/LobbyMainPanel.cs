@@ -194,6 +194,8 @@ namespace Photon.Pun.Demo.Asteroids
         public void OnCreateRoomButtonClicked()
         {
             RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
+            options.CustomRoomProperties = new Hashtable (){{"summer", "derrick"}};
+            options.CustomRoomPropertiesForLobby = new string[] {"summer"};
             
             PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
@@ -340,6 +342,16 @@ namespace Photon.Pun.Demo.Asteroids
                 {
                     Debug.Log("Nope");
                 }
+                
+                // PhotonNetwork.InLobby
+                // Room room = PhotonNetwork.roomin;
+                // if (room == null) {
+                //     return;
+                // }
+                // // 룸의 커스텀 프로퍼티를 취득
+                // Hashtable cp = room.CustomProperties;
+                // GUILayout.Label ((string)cp ["CustomProperties"], GUILayout.Width (150));
+                //
                 
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
                 
