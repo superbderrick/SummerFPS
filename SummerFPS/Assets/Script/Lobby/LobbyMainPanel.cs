@@ -2,6 +2,7 @@
 using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
+using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,11 +21,8 @@ namespace Com.LGUplus.Homework.Minifps
 
         public GameObject RoomListContent;
         public GameObject RoomListEntryPrefab;
-        
-        public Button StartGameButton;
         public Button RoomNameButton;
-        public GameObject PlayerListEntryPrefab;
-
+        
         private Dictionary<string, RoomInfo> cachedRoomList;
         private Dictionary<string, GameObject> roomListEntries;
 
@@ -61,17 +59,12 @@ namespace Com.LGUplus.Homework.Minifps
         // note: when a client joins / creates a room, OnLeftLobby does not get called, even if the client was in a lobby before
         public override void OnLeftLobby()
         {
-            Debug.Log("OnLeftLobby");
+         
             cachedRoomList.Clear();
             ClearRoomListView();
         }
 
         public override void OnCreateRoomFailed(short returnCode, string message)
-        {
-            SetActivePanel(SelectionPanel.name);
-        }
-
-        public override void OnJoinRoomFailed(short returnCode, string message)
         {
             SetActivePanel(SelectionPanel.name);
         }
@@ -116,8 +109,13 @@ namespace Com.LGUplus.Homework.Minifps
             
             PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
-        
-        
+
+        public override void OnCreatedRoom()
+        {
+            CommonUtils.LoadScene("GameRoomScene");
+        }
+
+
         public void OnRoomListButtonClicked()
         {
             if (!PhotonNetwork.InLobby)
@@ -132,7 +130,6 @@ namespace Com.LGUplus.Homework.Minifps
         
         private void ClearRoomListView()
         {
-            Debug.Log("ClearRoomListView");
             foreach (GameObject entry in roomListEntries.Values)
             {
                 Destroy(entry.gameObject);
@@ -181,17 +178,6 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
-            
-                
-                // PhotonNetwork.InLobby
-                // Room room = PhotonNetwork.roomin;
-                // if (room == null) {
-                //     return;
-                // }
-                // // 룸의 커스텀 프로퍼티를 취득
-                // Hashtable cp = room.CustomProperties;
-                // GUILayout.Label ((string)cp ["CustomProperties"], GUILayout.Width (150));
-                //
                 
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
                 
@@ -202,7 +188,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            SceneManager.LoadScene("TitleScene");
+            CommonUtils.LoadScene("TitleScene");
         }
     }
 }
