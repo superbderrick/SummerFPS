@@ -578,7 +578,7 @@ GameObject:
   - component: {fileID: 635595327}
   - component: {fileID: 635595326}
   m_Layer: 5
-  m_Name: PunMeteoroid
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1060,7 +1060,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1165784656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65222193e15a7470297420f2ec4c12f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 992986a88e0634f64b5b4176c1774a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectionStatusText: {fileID: 759308736}

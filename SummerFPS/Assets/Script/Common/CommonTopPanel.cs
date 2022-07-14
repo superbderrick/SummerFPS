@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class TitleTopPanel : MonoBehaviour
+    public class CommonTopPanel : MonoBehaviour
     {
         private readonly string connectionStatusMessage = "    Connection Status: ";
 
