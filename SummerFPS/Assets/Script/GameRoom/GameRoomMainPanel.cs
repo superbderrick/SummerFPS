@@ -8,7 +8,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
 namespace Com.LGUplus.Homework.Minifps
 {
     public class GameRoomMainPanel : MonoBehaviourPunCallbacks
@@ -26,7 +25,6 @@ namespace Com.LGUplus.Homework.Minifps
         public void Awake()
         {
             PhotonNetwork.AutomaticallySyncScene = true;
-            
         }
 
         #endregion
@@ -35,11 +33,8 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnJoinedRoom()
         {
-            
             RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;
             
-            SetActivePanel(InsideRoomPanel.name);
-
             if (playerListEntries == null)
             {
                 playerListEntries = new Dictionary<int, GameObject>();
@@ -57,7 +52,6 @@ namespace Com.LGUplus.Homework.Minifps
                 {
                     entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
                 }
-
                 playerListEntries.Add(p.ActorNumber, entry);
             }
 
@@ -72,8 +66,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnLeftRoom()
         {
-        // move prevous
-
+            
             foreach (GameObject entry in playerListEntries.Values)
             {
                 Destroy(entry.gameObject);
@@ -134,32 +127,10 @@ namespace Com.LGUplus.Homework.Minifps
         #endregion
 
         #region UI CALLBACKS
-
-        public void OnBackButtonClicked()
-        {
-            if (PhotonNetwork.InLobby)
-            {
-                PhotonNetwork.LeaveLobby();
-            }
-
-          //  SetActivePanel(SelectionPanel.name);
-          //scene 이동
-        }
         
         public void OnLeaveGameButtonClicked()
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                //test
-                string test;
-            }
-            else
-            {
-                  //test  
-                  string test;
-            }
-            PhotonNetwork.LeaveRoom();   
-            
+            PhotonNetwork.LeaveRoom();
         }
         
         public void OnStartGameButtonClicked()
@@ -196,33 +167,6 @@ namespace Com.LGUplus.Homework.Minifps
 
             return true;
         }
-        
-        private bool CheckPlayingGame()
-        {
-            if (!PhotonNetwork.IsMasterClient)
-            {
-                return false;
-            }
-
-            foreach (Player p in PhotonNetwork.PlayerList)
-            {
-                object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LOADED_LEVEL, out isPlayerReady))
-                {
-                    if (!(bool) isPlayerReady)
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-        
 
         public void LocalPlayerPropertiesUpdated()
         {

@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-
 
 namespace Com.LGUplus.Homework.Minifps
 {
@@ -18,10 +15,8 @@ namespace Com.LGUplus.Homework.Minifps
         
         [Header("Room List Panel")]
         public GameObject RoomListPanel;
-
         public GameObject RoomListContent;
         public GameObject RoomListEntryPrefab;
-        public Button RoomNameButton;
         
         private Dictionary<string, RoomInfo> cachedRoomList;
         private Dictionary<string, GameObject> roomListEntries;
@@ -43,7 +38,6 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-            Debug.Log("OnRoomListUpdate");
             ClearRoomListView();
             UpdateCachedRoomList(roomList);
             UpdateRoomListView();
@@ -51,15 +45,12 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnJoinedLobby()
         {
-            // whenever this joins a new lobby, clear any previous room lists
             cachedRoomList.Clear();
             ClearRoomListView();
         }
-
-        // note: when a client joins / creates a room, OnLeftLobby does not get called, even if the client was in a lobby before
+        
         public override void OnLeftLobby()
         {
-         
             cachedRoomList.Clear();
             ClearRoomListView();
         }
@@ -71,20 +62,7 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnJoinedRoom()
         {
-
             cachedRoomList.Clear();
-
-            //이동 시점
-            RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;
-            
-            //이동 시점 
-            // SetActivePanel(InsideRoomPanel.name);
-            //
-            // if (playerListEntries == null)
-            // {
-            //     playerListEntries = new Dictionary<int, GameObject>();
-            // }
-
         }
         
         #endregion
@@ -112,7 +90,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnCreatedRoom()
         {
-            CommonUtils.LoadScene("GameRoomScene");
+            CommonUtils.LoadScene("GameroomScene");
         }
 
 
@@ -141,7 +119,7 @@ namespace Com.LGUplus.Homework.Minifps
         private void SetActivePanel(string activePanel)
         {
             SelectionPanel.SetActive(activePanel.Equals(SelectionPanel.name));
-            RoomListPanel.SetActive(activePanel.Equals(RoomListPanel.name));    // UI should call OnRoomListButtonClicked() to activate this
+            RoomListPanel.SetActive(activePanel.Equals(RoomListPanel.name));    
         }
 
         private void UpdateCachedRoomList(List<RoomInfo> roomList)
