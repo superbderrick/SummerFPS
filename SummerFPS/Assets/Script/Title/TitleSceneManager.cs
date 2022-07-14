@@ -10,9 +10,9 @@ using Photon.Realtime;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class Launcher : MonoBehaviourPunCallbacks
+    public class TitleSceneManager : MonoBehaviourPunCallbacks
     {
-	    public static Launcher Instance;
+	    public static TitleSceneManager Instance;
     	
     	#region Private Serializable Fields
     	
