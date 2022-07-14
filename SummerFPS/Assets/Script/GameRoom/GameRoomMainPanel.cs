@@ -24,15 +24,24 @@ namespace Com.LGUplus.Homework.Minifps
 
         public void Awake()
         {
-         //   PhotonNetwork.AutomaticallySyncScene = true;
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
 
         private void Start()
         {
-            if (PhotonNetwork.IsConnected && PhotonNetwork.InRoom)
-            {
-                
-            }
+            Debug.Log("Start");
+            SetupList();
+        }
+
+        public override void OnCreatedRoom()
+        {
+            Debug.Log("OnCreatedRoom");
+        }
+        
+        public override void OnJoinedRoom()
+        {
+            Debug.Log("OnCreatedRoom");
+         
         }
 
         private void SetupList()
@@ -50,18 +59,18 @@ namespace Com.LGUplus.Homework.Minifps
                 entry.transform.SetParent(InsideRoomPanel.transform);
                 entry.transform.localScale = Vector3.one;
                 entry.GetComponent<SummerPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
-
+            
                 object isPlayerReady;
                 if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
                 {
                     entry.GetComponent<SummerPlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
                 }
-
+            
                 playerListEntries.Add(p.ActorNumber, entry);
             }
-
+            
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
-
+            
             Hashtable props = new Hashtable
             {
                 { AsteroidsGame.PLAYER_LOADED_LEVEL, false }
@@ -73,11 +82,6 @@ namespace Com.LGUplus.Homework.Minifps
 
         #region PUN CALLBACKS
         
-        public override void OnJoinedRoom()
-        {
-           // CommonUtils.LoadScene("LobbyScene");
-            SetupList();
-        }
 
         public override void OnLeftRoom()
         {
