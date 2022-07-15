@@ -43,8 +43,7 @@ public class EnemyController : MonoBehaviourPunCallbacks, IDamageable
 	{
 		if(!PV.IsMine)
 			return;
-
-		Look();
+		
 		Move();
 
 		if(transform.position.y < -10f) // Die if you fall out of the world
@@ -67,16 +66,7 @@ public class EnemyController : MonoBehaviourPunCallbacks, IDamageable
 			Destroy(ui);
 		}
 	}
-
-	void Look()
-	{
-		transform.Rotate(Vector3.up * Input.GetAxisRaw("Mouse X") * mouseSensitivity);
-
-		verticalLookRotation += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
-		verticalLookRotation = Mathf.Clamp(verticalLookRotation, -90f, 90f);
-
-		cameraHolder.transform.localEulerAngles = Vector3.left * verticalLookRotation;
-	}
+	
 
 	void Move()
 	{
@@ -96,7 +86,7 @@ public class EnemyController : MonoBehaviourPunCallbacks, IDamageable
 		if(!PV.IsMine)
 			return;
 
-		rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
+	//	rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
 	}
 
 	public void TakeDamage(float damage)

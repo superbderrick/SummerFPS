@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameStatusText.text = SummerFPSGame.START_GAME;
             
             MakePlayerManager();
-            MakeEnemyManager();
+           // MakeEnemyManager();
             
             if (PhotonNetwork.IsMasterClient)
             {
