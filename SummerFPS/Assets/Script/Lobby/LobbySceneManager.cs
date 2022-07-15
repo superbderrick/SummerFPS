@@ -153,14 +153,34 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
-                // Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
-                // cp["CustomProperties"] 
+                 
                 
                 Hashtable cp = info.CustomProperties;
+
+                foreach (var VARIABLE in info.CustomProperties)
+                {
+                    Debug.Log("key " + VARIABLE.Key.ToString());
+                    Debug.Log("--- ");
+                    Debug.Log("VALUE " + VARIABLE.Value.ToString());
+                    
+                }
                 string test = (string)cp["roomstatus"];
+                
+                
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,test);
                 
                 roomListEntries.Add(info.Name, entry);
+            }
+        }
+
+        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        {
+            foreach (var VARIABLE in propertiesThatChanged)
+            {
+                Debug.Log("OnRoomPropertiesUpdate key " + VARIABLE.Key.ToString());
+                Debug.Log("--- ");
+                Debug.Log(" OnRoomPropertiesUpdate VALUE " + VARIABLE.Value.ToString());
+                    
             }
         }
 

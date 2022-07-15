@@ -57,6 +57,18 @@ public class GameManager : MonoBehaviourPunCallbacks
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
             
+            Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
+            if (cp!=null)
+            {
+                Hashtable props1 = new Hashtable
+                {
+                    {"derrick", true}
+                };
+                PhotonNetwork.CurrentRoom.SetCustomProperties(props1);
+                cp["roomstatus"] = "playing";    
+            }
+            
+            
             Reset_Timer();
         }
 
