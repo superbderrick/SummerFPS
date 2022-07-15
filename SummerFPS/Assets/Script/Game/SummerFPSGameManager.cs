@@ -1,5 +1,5 @@
 
-using System;
+
 using System.Collections;
 using System.IO;
 using Com.LGUplus.Homework.Minifps.Utills;
@@ -9,7 +9,7 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using Script.Game;
 using UnityEngine;
-using UnityEngine.Serialization;
+
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -18,13 +18,15 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 {
         public static SummerFPSGameManager Instance = null;
 
-        [FormerlySerializedAs("InfoText")] public Text infoText;
+        public Text infoText;
         public Text gameStatusText;
         public Text gameTimeText;
         
         private float time_current;
-        public float gameTime = 60f;
         private bool isEnded;
+        
+        public float gameTime = 60f;
+        public float resutOpenningTime = 3.0f;
 
         #region UNITY
 
@@ -73,17 +75,18 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
     
         private IEnumerator EndOfGame(string winner, int score)
         {
-            float timer = 5.0f;
+            
 
-            while (timer > 0.0f)
+            while (resutOpenningTime > 0.0f)
             {
-                infoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, timer.ToString("n2"));
+                infoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, resutOpenningTime.ToString("n2"));
 
                 yield return new WaitForEndOfFrame();
 
-                timer -= Time.deltaTime;
+                resutOpenningTime -= Time.deltaTime;
             }
             gameStatusText.text = SummerFPSGame.FINISH_GAME;
+            
             PhotonNetwork.LeaveRoom();
         }
 
