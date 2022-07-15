@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Random = UnityEngine.Random;
+
 
 namespace Photon.Pun.Demo.Asteroids
 {
@@ -24,6 +24,7 @@ namespace Photon.Pun.Demo.Asteroids
         public GameObject InsideRoomPanel;
 
         public Button StartGameButton;
+        public Button RoomNameButton;
         public GameObject PlayerListEntryPrefab;
 
         private Dictionary<string, RoomInfo> cachedRoomList;
@@ -79,11 +80,12 @@ namespace Photon.Pun.Demo.Asteroids
         
         public override void OnJoinedRoom()
         {
-            // joining (or entering) a room invalidates any cached lobby room list
-            // (even if LeaveLobby was not called due to just joining a room)
+
             cachedRoomList.Clear();
 
-
+            
+            RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;
+            
             SetActivePanel(InsideRoomPanel.name);
 
             if (playerListEntries == null)
@@ -194,13 +196,26 @@ namespace Photon.Pun.Demo.Asteroids
         public void OnCreateRoomButtonClicked()
         {
             RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
+            options.CustomRoomProperties = new Hashtable (){{"summer", "derrick"}};
+            options.CustomRoomPropertiesForLobby = new string[] {"summer"};
             
             PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
         
         public void OnLeaveGameButtonClicked()
         {
-            PhotonNetwork.LeaveRoom();
+            if (PhotonNetwork.IsMasterClient)
+            {
+                //test
+                string test;
+            }
+            else
+            {
+                  //test  
+                  string test;
+            }
+            PhotonNetwork.LeaveRoom();   
+            
         }
         
         public void OnRoomListButtonClicked()
@@ -217,6 +232,7 @@ namespace Photon.Pun.Demo.Asteroids
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
             PhotonNetwork.CurrentRoom.IsVisible = true;
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(new Hashtable() { { "C0", value } });
 
             PhotonNetwork.LoadLevel("GameScene");
         }
@@ -340,6 +356,16 @@ namespace Photon.Pun.Demo.Asteroids
                 {
                     Debug.Log("Nope");
                 }
+                
+                // PhotonNetwork.InLobby
+                // Room room = PhotonNetwork.roomin;
+                // if (room == null) {
+                //     return;
+                // }
+                // // 룸의 커스텀 프로퍼티를 취득
+                // Hashtable cp = room.CustomProperties;
+                // GUILayout.Label ((string)cp ["CustomProperties"], GUILayout.Width (150));
+                //
                 
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
                 
