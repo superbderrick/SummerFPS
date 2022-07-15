@@ -162,6 +162,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
             gameStatusText.text = SummerFPSGame.START_GAME;
             
             MakePlayerManager();
+            MakeEnemyManager();
             
             if (PhotonNetwork.IsMasterClient)
             {
@@ -172,6 +173,10 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
         private static void MakePlayerManager()
         {
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
+        }
+        private static void MakeEnemyManager()
+        {
+            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "EnemyManager"), Vector3.zero, Quaternion.identity);
         }
 
         private bool CheckAllPlayerLoadedLevel()
