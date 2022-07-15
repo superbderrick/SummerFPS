@@ -1,11 +1,18 @@
+using System;
 using System.Text;
 using UnityEngine.SceneManagement;
+using UnityEngine;
+using Random = UnityEngine.Random;
+
 
 namespace Com.LGUplus.Homework.Minifps.Utills
 {
     public class CommonUtils
     {
         private static string NETWORK_FAILURE = "네트워크 문제로 접속 실패 \n";
+        private static string PLAYER = "Player ";
+        
+        
         public static void LoadScene(string sceneName){
             SceneManager.LoadScene(sceneName);
         }
@@ -18,6 +25,18 @@ namespace Com.LGUplus.Homework.Minifps.Utills
             
             return sb.ToString();
         }
+        
+        public static string GetPlayerName()
+        {
+            string number = Random.Range(0, 10000).ToString("0000");
+            StringBuilder sb = new StringBuilder();
+            
+            sb.Append(PLAYER);
+            sb.Append(number);
+            return sb.ToString();
+        }
+        
+        
       
     }
 }

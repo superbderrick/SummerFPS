@@ -47,6 +47,7 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(PlayerListEntryPrefab);
                 entry.transform.SetParent(InsideRoomPanel.transform);
                 entry.transform.localScale = Vector3.one;
+                p.NickName = CommonUtils.GetPlayerName(); 
                 entry.GetComponent<SummerPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
             
                 object isPlayerReady;
