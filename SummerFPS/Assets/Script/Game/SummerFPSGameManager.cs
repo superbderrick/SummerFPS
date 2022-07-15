@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.IO;
 using Com.LGUplus.Homework.Minifps.Utills;
@@ -8,6 +9,7 @@ using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
 using Script.Game;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
@@ -16,15 +18,27 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 {
         public static SummerFPSGameManager Instance = null;
 
-        public Text InfoText;
+        [FormerlySerializedAs("InfoText")] public Text infoText;
         public Text gameStatusText;
+        public Text gameTimeText;
         
+        private float time_current;
+        public float gameTime = 60f;
+        private bool isEnded;
 
         #region UNITY
 
         public void Awake()
         {
             Instance = this;
+        }
+
+        private void Update()
+        {
+            if (isEnded)
+                return;
+
+            Check_Timer();
         }
 
         public override void OnEnable()
@@ -41,6 +55,8 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
                 {AsteroidsGame.PLAYER_LOADED_LEVEL, true}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
+            
+            Reset_Timer();
         }
 
         public override void OnDisable()
@@ -61,7 +77,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
             while (timer > 0.0f)
             {
-                InfoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, timer.ToString("n2"));
+                infoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, timer.ToString("n2"));
 
                 yield return new WaitForEndOfFrame();
 
@@ -130,7 +146,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    InfoText.text = "Waiting for other players...";
+                    infoText.text = "Waiting for other players...";
                 }
             }
         
@@ -196,29 +212,66 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
             if (allDestroyed)
             {
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    StopAllCoroutines();
-                }
-
-                string winner = "";
-                int score = -1;
-
-                foreach (Player p in PhotonNetwork.PlayerList)
-                {
-                    if (p.GetScore() > score)
-                    {
-                        winner = p.NickName;
-                        score = p.GetScore();
-                    }
-                }
-
-                StartCoroutine(EndOfGame(winner, score));
+                finishGame();
             }
+        }
+
+        private void finishGame()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                StopAllCoroutines();
+            }
+
+            string winner = "";
+            int score = -1;
+
+            foreach (Player p in PhotonNetwork.PlayerList)
+            {
+                if (p.GetScore() > score)
+                {
+                    winner = p.NickName;
+                    score = p.GetScore();
+                }
+            }
+
+            StartCoroutine(EndOfGame(winner, score));
         }
 
         private void OnCountdownTimerIsExpired()
         {
             StartGame();
+        }
+        
+        private void End_Timer()
+        {
+            time_current = 0;
+            gameTimeText.text = $"{time_current:N1}";
+            isEnded = true;
+            finishGame();
+        }
+
+
+        private void Reset_Timer()
+        {
+            time_current = gameTime;
+            gameTimeText.text = $"{time_current:N1}";
+            isEnded = false;
+            Debug.Log("Start");
+        }
+        
+        private void Check_Timer()
+        {
+            if (0 < time_current)
+            {
+                time_current -= Time.deltaTime;
+                gameTimeText.text = $"{time_current:N1}";
+                Debug.Log(time_current);
+            }
+            else if (!isEnded)
+            {
+                End_Timer();
+            }
+            
         }
 }
