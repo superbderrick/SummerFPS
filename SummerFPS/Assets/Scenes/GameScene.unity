@@ -837,7 +837,8 @@ MonoBehaviour:
   infoText: {fileID: 659505081}
   gameStatusText: {fileID: 174463532}
   gameTimeText: {fileID: 1455916826}
-  gameTime: 5
+  gameTime: 60
+  resutOpenningTime: 3
 --- !u!1001 &385830077
 PrefabInstance:
   m_ObjectHideFlags: 0
