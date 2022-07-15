@@ -19,7 +19,7 @@ using Photon.Pun.UtilityScripts;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class SummerPlayerListEntry : MonoBehaviour
+    public class PlayerListEntry : MonoBehaviour
     {
         [Header("UI References")]
         public Text PlayerNameText;
@@ -60,7 +60,7 @@ namespace Com.LGUplus.Homework.Minifps
 
                     if (PhotonNetwork.IsMasterClient)
                     {
-                        FindObjectOfType<GameRoomManager>().LocalPlayerPropertiesUpdated();
+                        FindObjectOfType<LobbyMainPanel>().LocalPlayerPropertiesUpdated();
                     }
                 });
             }

@@ -588,7 +588,7 @@ GameObject:
   - component: {fileID: 635595327}
   - component: {fileID: 635595326}
   m_Layer: 5
-  m_Name: PunMeteoroid
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1429,7 +1429,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1165784656}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a588f893b3804807afe90c0ca1a8cde, type: 3}
+  m_Script: {fileID: 11500000, guid: 992986a88e0634f64b5b4176c1774a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectionStatusText: {fileID: 759308736}
@@ -1605,9 +1605,6 @@ MonoBehaviour:
   RoomListPanel: {fileID: 953796484}
   RoomListContent: {fileID: 889509550}
   RoomListEntryPrefab: {fileID: 114706, guid: 5471f0809a79a4ddaafa1805860a463a, type: 3}
-  StartGameButton: {fileID: 0}
-  RoomNameButton: {fileID: 0}
-  PlayerListEntryPrefab: {fileID: 195212, guid: 734db6f5ad5354088b2b156772b6bd57, type: 3}
 --- !u!1 &1452023752
 GameObject:
   m_ObjectHideFlags: 0

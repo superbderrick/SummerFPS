@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class LobbyMainPanel : MonoBehaviourPunCallbacks
+    public class LobbySceneManager : MonoBehaviourPunCallbacks
     {
         [Header("Selection Panel")]
         public GameObject SelectionPanel;
@@ -83,8 +83,7 @@ namespace Com.LGUplus.Homework.Minifps
         public void OnCreateRoomButtonClicked()
         {
             RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
-            options.CustomRoomProperties = new Hashtable (){{"summer", "derrick"}};
-            options.CustomRoomPropertiesForLobby = new string[] {"summer"};
+            options.CustomRoomProperties = new Hashtable() { { "키1", "문자열" }, { "키2", 1 } };
             
             PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
@@ -146,15 +145,15 @@ namespace Com.LGUplus.Homework.Minifps
 
         private void UpdateRoomListView()
         {
-            Debug.Log("UpdateRoomListView" + cachedRoomList.Count);
+            
             foreach (RoomInfo info in cachedRoomList.Values)
             {
+                
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
                 
                 entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
-                
                 
                 roomListEntries.Add(info.Name, entry);
             }

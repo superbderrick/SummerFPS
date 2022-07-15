@@ -10,13 +10,14 @@ using UnityEngine.UI;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class GameRoomMainPanel : MonoBehaviourPunCallbacks
+    public class GameRoomManager : MonoBehaviourPunCallbacks
     {
         [Header("Inside Room Panel")]
         public GameObject InsideRoomPanel;
 
         public Button StartGameButton;
         public Button RoomNameButton;
+        
         public GameObject PlayerListEntryPrefab;
         private Dictionary<int, GameObject> playerListEntries;
 
@@ -29,21 +30,9 @@ namespace Com.LGUplus.Homework.Minifps
 
         private void Start()
         {
-            Debug.Log("Start");
             SetupList();
         }
-
-        public override void OnCreatedRoom()
-        {
-            Debug.Log("OnCreatedRoom");
-        }
         
-        public override void OnJoinedRoom()
-        {
-            Debug.Log("OnCreatedRoom");
-         
-        }
-
         private void SetupList()
         {
             RoomNameButton.GetComponentInChildren<Text>().text = "Room Name : \n" + PhotonNetwork.CurrentRoom.Name;
@@ -85,7 +74,6 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnLeftRoom()
         {
-            
             foreach (GameObject entry in playerListEntries.Values)
             {
                 Destroy(entry.gameObject);
@@ -119,10 +107,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnMasterClientSwitched(Player newMasterClient)
         {
-            if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
-            {
-                StartGameButton.gameObject.SetActive(CheckPlayersReady());
-            }
+            PhotonNetwork.LeaveRoom();
         }
 
         public override void OnPlayerPropertiesUpdate(Player targetPlayer, Hashtable changedProps)
@@ -158,7 +143,15 @@ namespace Com.LGUplus.Homework.Minifps
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
             PhotonNetwork.CurrentRoom.IsVisible = true;
-            PhotonNetwork.LoadLevel("GameScene");
+            
+            Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
+
+            print(CP["키1"]);
+
+            CP["키1"] = "summerderrick";
+           
+            
+            PhotonNetwork.LoadLevel("TargetGame");
         }
 
         #endregion
