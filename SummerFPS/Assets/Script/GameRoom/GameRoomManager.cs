@@ -150,8 +150,8 @@ namespace Com.LGUplus.Homework.Minifps
 
             CP["키1"] = "summerderrick";
            
-            
             PhotonNetwork.LoadLevel("GameScene");
+            //PhotonNetwork.LoadLevel("TargetGame");
         }
 
         #endregion
