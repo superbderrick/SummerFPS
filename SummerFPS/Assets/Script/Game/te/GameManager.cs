@@ -116,7 +116,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("DemoAsteroids-LobbyScene");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
         }
 
         public override void OnLeftRoom()
