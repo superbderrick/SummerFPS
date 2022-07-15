@@ -6,6 +6,7 @@ using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.UtilityScripts;
 using Photon.Realtime;
+using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -16,6 +17,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
         public static SummerFPSGameManager Instance = null;
 
         public Text InfoText;
+        public Text gameStatusText;
         
 
         #region UNITY
@@ -65,7 +67,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
                 timer -= Time.deltaTime;
             }
-
+            gameStatusText.text = SummerFPSGame.FINISH_GAME;
             PhotonNetwork.LeaveRoom();
         }
 
@@ -117,10 +119,12 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
             if (changedProps.ContainsKey(AsteroidsGame.PLAYER_LOADED_LEVEL))
             {
+                
                 if (CheckAllPlayerLoadedLevel())
                 {
                     if (!startTimeIsSet)
                     {
+                        gameStatusText.text = SummerFPSGame.PREPARE_GAME;
                         CountdownTimer.SetStartTime();
                     }
                 }
@@ -136,6 +140,8 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
         
         private void StartGame()
         {
+            gameStatusText.text = SummerFPSGame.START_GAME;
+            
             MakePlayerManager();
             
             if (PhotonNetwork.IsMasterClient)
@@ -151,6 +157,8 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
         private bool CheckAllPlayerLoadedLevel()
         {
+            gameStatusText.text = SummerFPSGame.CHECK_LOADING;
+            
             foreach (Player p in PhotonNetwork.PlayerList)
             {
                 object playerLoadedLevel;

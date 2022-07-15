@@ -4,6 +4,12 @@ namespace Script.Game
 {
     public class SummerFPSGame
     {
+        public const string CHECK_LOADING = "로딩 체크중";
+        public const string PREPARE_GAME = "게임준비 3초";
+        public const string START_GAME = "게임 시작";
+        public const string FINISH_GAME = "게임 종료";
+        
+        
         public static Color GetColor(int colorChoice)
         {
             switch (colorChoice)
