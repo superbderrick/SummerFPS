@@ -20,7 +20,7 @@ using Script.Game;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class SummerPlayerListEntry : MonoBehaviour
+    public class PlayerListEntry : MonoBehaviour
     {
         [Header("UI References")]
         public Text PlayerNameText;
