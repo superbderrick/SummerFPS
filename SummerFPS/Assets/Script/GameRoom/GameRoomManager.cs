@@ -47,6 +47,7 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(PlayerListEntryPrefab);
                 entry.transform.SetParent(InsideRoomPanel.transform);
                 entry.transform.localScale = Vector3.one;
+                p.NickName = CommonUtils.GetPlayerName(); 
                 entry.GetComponent<SummerPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
             
                 object isPlayerReady;
@@ -150,8 +151,8 @@ namespace Com.LGUplus.Homework.Minifps
 
             CP["키1"] = "summerderrick";
            
-            
-            PhotonNetwork.LoadLevel("TargetGame");
+            PhotonNetwork.LoadLevel("GameScene");
+           // PhotonNetwork.LoadLevel("TargetGame");
         }
 
         #endregion

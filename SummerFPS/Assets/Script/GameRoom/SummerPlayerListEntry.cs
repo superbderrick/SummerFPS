@@ -16,6 +16,7 @@ using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
+using Script.Game;
 
 namespace Com.LGUplus.Homework.Minifps
 {
@@ -85,7 +86,7 @@ namespace Com.LGUplus.Homework.Minifps
             {
                 if (p.ActorNumber == ownerId)
                 {
-                    PlayerColorImage.color = AsteroidsGame.GetColor(p.GetPlayerNumber());
+                    PlayerColorImage.color = SummerFPSGame.GetColor(p.GetPlayerNumber());
                 }
             }
         }

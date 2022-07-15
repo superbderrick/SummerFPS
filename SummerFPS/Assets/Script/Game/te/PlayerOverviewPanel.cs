@@ -1,13 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlayerNumbering.cs" company="Exit Games GmbH">
-//   Part of: Asteroid Demo,
-// </copyright>
-// <summary>
-//  Player Overview Panel
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
+﻿
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -64,7 +55,9 @@ namespace Com.LGUplus.Homework.Minifps
             GameObject entry;
             if (playerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
             {
-                entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}\nLives: {2}", targetPlayer.NickName, targetPlayer.GetScore(), targetPlayer.CustomProperties[AsteroidsGame.PLAYER_LIVES]);
+                entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}\nLives: {2}", targetPlayer.NickName,
+                    targetPlayer.GetScore(),
+                    targetPlayer.CustomProperties[AsteroidsGame.PLAYER_LIVES]);
             }
         }
 
