@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
+using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -51,7 +52,7 @@ namespace Com.LGUplus.Homework.Minifps
                 entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
             
                 object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
                     entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
                 }
@@ -63,7 +64,7 @@ namespace Com.LGUplus.Homework.Minifps
             
             Hashtable props = new Hashtable
             {
-                { AsteroidsGame.PLAYER_LOADED_LEVEL, false }
+                { SummerFPSGame.PLAYER_LOADED_LEVEL, false }
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
@@ -122,7 +123,7 @@ namespace Com.LGUplus.Homework.Minifps
             if (playerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
             {
                 object isPlayerReady;
-                if (changedProps.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
+                if (changedProps.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
                     entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
                 }
@@ -161,7 +162,7 @@ namespace Com.LGUplus.Homework.Minifps
             foreach (Player p in PhotonNetwork.PlayerList)
             {
                 object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
                     if (!(bool) isPlayerReady)
                     {

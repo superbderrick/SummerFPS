@@ -9,6 +9,7 @@ using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
+using Script.Game;
 
 namespace Com.LGUplus.Homework.Minifps
 {
@@ -57,7 +58,7 @@ namespace Com.LGUplus.Homework.Minifps
             {
                 entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}\nLives: {2}", targetPlayer.NickName,
                     targetPlayer.GetScore(),
-                    targetPlayer.CustomProperties[AsteroidsGame.PLAYER_LIVES]);
+                    targetPlayer.CustomProperties[SummerFPSGame.PLAYER_LIVES]);
             }
         }
 

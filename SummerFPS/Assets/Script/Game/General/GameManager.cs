@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Hashtable props = new Hashtable
             {
-                {AsteroidsGame.PLAYER_LOADED_LEVEL, true}
+                {SummerFPSGame.PLAYER_LOADED_LEVEL, true}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
             
@@ -181,7 +181,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 object playerLoadedLevel;
 
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LOADED_LEVEL, out playerLoadedLevel))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_LOADED_LEVEL, out playerLoadedLevel))
                 {
                     if ((bool) playerLoadedLevel)
                     {
@@ -202,7 +202,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             foreach (Player p in PhotonNetwork.PlayerList)
             {
                 object lives;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LIVES, out lives))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_LIVES, out lives))
                 {
                     if ((int) lives > 0)
                     {
