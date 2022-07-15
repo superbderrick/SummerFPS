@@ -1,5 +1,6 @@
 
 using System.Collections;
+using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.UtilityScripts;
@@ -105,7 +106,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
         public override void OnDisconnected(DisconnectCause cause)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("DemoAsteroids-LobbyScene");
+            CommonUtils.LoadScene("TitleScene");
         }
 
         public override void OnLeftRoom()
@@ -117,7 +118,8 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
         {
             if (PhotonNetwork.LocalPlayer.ActorNumber == newMasterClient.ActorNumber)
             {
-                StartCoroutine(SpawnAsteroid());
+                //need to enemy
+               // StartCoroutine(SpawnAsteroid());
             }
         }
 

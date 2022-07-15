@@ -36,7 +36,5 @@ namespace Com.LGUplus.Homework.Minifps.Utills
             return sb.ToString();
         }
         
-        
-      
     }
 }
