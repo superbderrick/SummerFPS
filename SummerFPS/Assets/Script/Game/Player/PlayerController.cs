@@ -2,6 +2,8 @@
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun.UtilityScripts;
+using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
@@ -44,6 +46,11 @@ public class PlayerController : MonoBehaviourPunCallbacks, IDamageable
 
 	void Start()
 	{
+		foreach (Renderer r in GetComponentsInChildren<Renderer>())
+		{
+			r.material.color = SummerFPSGame.GetColor(photonView.Owner.GetPlayerNumber());
+		}
+		
 		if(PV.IsMine)
 		{
 			EquipItem(0);
