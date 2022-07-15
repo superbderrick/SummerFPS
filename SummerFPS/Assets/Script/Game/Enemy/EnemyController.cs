@@ -56,7 +56,6 @@ public class EnemyController : MonoBehaviourPunCallbacks, IDamageable
 	void Start()
 	{
 		
-		
 		if(PV.IsMine)
 		{
 		

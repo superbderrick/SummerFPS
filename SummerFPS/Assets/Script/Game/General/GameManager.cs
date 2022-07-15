@@ -14,9 +14,9 @@ using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 
-public class SummerFPSGameManager : MonoBehaviourPunCallbacks
+public class GameManager : MonoBehaviourPunCallbacks
 {
-        public static SummerFPSGameManager Instance = null;
+        public static GameManager Instance = null;
 
         public Text infoText;
         public Text gameStatusText;
@@ -39,7 +39,6 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
         {
             if (isEnded)
                 return;
-
             Check_Timer();
         }
 
