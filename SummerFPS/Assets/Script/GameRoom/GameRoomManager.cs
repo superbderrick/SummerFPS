@@ -4,7 +4,6 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
-using Photon.Pun.Demo.Asteroids;
 using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
@@ -145,7 +144,9 @@ namespace Com.LGUplus.Homework.Minifps
         {
             PhotonNetwork.CurrentRoom.IsOpen = true;
             PhotonNetwork.CurrentRoom.IsVisible = true;
-
+            Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
+            cp["roomstatus"] = "playing";
+            Hashtable cps = PhotonNetwork.CurrentRoom.CustomProperties;
             PhotonNetwork.LoadLevel("GameScene");
            // PhotonNetwork.LoadLevel("TargetGame");
         }

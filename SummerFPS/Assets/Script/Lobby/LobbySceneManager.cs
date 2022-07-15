@@ -83,7 +83,8 @@ namespace Com.LGUplus.Homework.Minifps
         public void OnCreateRoomButtonClicked()
         {
             RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
-            options.CustomRoomProperties = new Hashtable() { { "키1", "문자열" }, { "키2", 1 } };
+            options.CustomRoomProperties = new Hashtable (){{"roomstatus", "notplaying"}};
+            options.CustomRoomPropertiesForLobby = new string[] {"roomstatus"};
             
             PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
         }
@@ -152,8 +153,12 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
+                // Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
+                // cp["CustomProperties"] 
                 
-                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,"test");
+                Hashtable cp = info.CustomProperties;
+                string test = (string)cp["roomstatus"];
+                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,test);
                 
                 roomListEntries.Add(info.Name, entry);
             }
