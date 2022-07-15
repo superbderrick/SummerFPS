@@ -13,11 +13,10 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 {
-         public static SummerFPSGameManager Instance = null;
+        public static SummerFPSGameManager Instance = null;
 
         public Text InfoText;
-
-        public GameObject[] AsteroidPrefabs;
+        
 
         #region UNITY
 
@@ -53,38 +52,7 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
 
         #region COROUTINES
 
-        private IEnumerator SpawnAsteroid()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(Random.Range(AsteroidsGame.ASTEROIDS_MIN_SPAWN_TIME, AsteroidsGame.ASTEROIDS_MAX_SPAWN_TIME));
-
-                Vector2 direction = Random.insideUnitCircle;
-                Vector3 position = Vector3.zero;
-
-                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-                {
-                    // Make it appear on the left/right side
-                    position = new Vector3(Mathf.Sign(direction.x) * Camera.main.orthographicSize * Camera.main.aspect, 0, direction.y * Camera.main.orthographicSize);
-                }
-                else
-                {
-                    // Make it appear on the top/bottom
-                    position = new Vector3(direction.x * Camera.main.orthographicSize * Camera.main.aspect, 0, Mathf.Sign(direction.y) * Camera.main.orthographicSize);
-                }
-
-                // Offset slightly so we are not out of screen at creation time (as it would destroy the asteroid right away)
-                position -= position.normalized * 0.1f;
-
-
-                Vector3 force = -position.normalized * 1000.0f;
-                Vector3 torque = Random.insideUnitSphere * Random.Range(500.0f, 1500.0f);
-                object[] instantiationData = {force, torque, true};
-
-                PhotonNetwork.InstantiateRoomObject("BigAsteroid", position, Quaternion.Euler(Random.value * 360.0f, Random.value * 360.0f, Random.value * 360.0f), 0, instantiationData);
-            }
-        }
-
+    
         private IEnumerator EndOfGame(string winner, int score)
         {
             float timer = 5.0f;
@@ -158,8 +126,6 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
                 }
                 else
                 {
-                    // not all players loaded yet. wait:
-                    Debug.Log("setting text waiting for players! ",this.InfoText);
                     InfoText.text = "Waiting for other players...";
                 }
             }
@@ -167,13 +133,9 @@ public class SummerFPSGameManager : MonoBehaviourPunCallbacks
         }
 
         #endregion
-
         
-        // called by OnCountdownTimerIsExpired() when the timer ended
         private void StartGame()
         {
-            Debug.Log("StartGame!");
-            
             MakePlayerManager();
             
             if (PhotonNetwork.IsMasterClient)
