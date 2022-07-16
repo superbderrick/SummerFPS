@@ -30,26 +30,12 @@ public class SingleShotGun : Gun
 		if(Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
 		{
 			Debug.Log("Raycast");
-			// Debug.Log(hit.transform.name);
-			//
-			// Health target = hit.transform.GetComponent<Health>();
-			// if(target != null)
-			// {
-			// 	Debug.Log("Raycast22");
-			// 	target.TakeDamage(damage);
-			// }
 
 
 		}
 		
 		
-		// Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-		// ray.origin = cam.transform.position;
-		// if(Physics.Raycast(ray, out RaycastHit hit))
-		// {
-		// 	hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
-		// 	PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
-		// }
+	
 	}
 
 	[PunRPC]
