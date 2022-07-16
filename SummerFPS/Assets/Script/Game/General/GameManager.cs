@@ -264,7 +264,6 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 time_current -= Time.deltaTime;
                 gameTimeText.text = $"{time_current:N1}";
-                Debug.Log(time_current);
             }
             else if (!isEnded)
             {
