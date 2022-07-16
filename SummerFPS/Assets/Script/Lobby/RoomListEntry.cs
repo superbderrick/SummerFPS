@@ -15,12 +15,13 @@ namespace Com.LGUplus.Homework.Minifps
         
         private string roomName;
         private bool isFullPlayers;
+        private bool isPlaying = false;
 
         public void Start()
         {
             JoinRoomButton.onClick.AddListener(() =>
             {
-                if (!isFullPlayers && RoomStatusText.text.Equals(SummerFPSGame.NOT_PLAYING_GAME))
+                if (!isFullPlayers && !isPlaying)
                 {
                     if (PhotonNetwork.InLobby)
                     {
@@ -46,10 +47,24 @@ namespace Com.LGUplus.Homework.Minifps
 
             RoomNameText.text = CommonUtils.GetStringMessage("RoomName: ", name);
             RoomPlayersText.text = CommonUtils.GetStringMessage(currentPlayers.ToString(),maxPlayers.ToString() , "/" , "Members : ");
-            RoomStatusText.text = CommonUtils.GetStringMessage("Game Status: ", gameStatus); 
+            RoomStatusText.text = CommonUtils.GetStringMessage("Game Status: ", gameStatus);
+
+            CheckRoomStatus(gameStatus);
 
             CheckFullPlayerCount(currentPlayers, maxPlayers);
             
+        }
+
+        private void CheckRoomStatus(string gameStatus)
+        {
+            if (gameStatus.Equals(SummerFPSGame.NOT_PLAYING_GAME))
+            {
+                isPlaying = false;
+            }
+            else
+            {
+                isPlaying = true;
+            }
         }
 
         private void CheckFullPlayerCount(byte currentPlayers, byte maxPlayers)
