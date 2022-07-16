@@ -193,8 +193,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
 	{
 		currentHealth -= damage;
 
-
-
 		if(currentHealth <= 0)
 		{
 			Die();

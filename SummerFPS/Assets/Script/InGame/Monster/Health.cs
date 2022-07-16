@@ -6,12 +6,10 @@ public class Health : MonoBehaviour
     
     public void TakeDamage(float amount)
     {
-        
         Debug.Log("amount " + amount);
         health -= amount;
         if(health <= 0f)
         {
-            
             Die();
         }
     }
