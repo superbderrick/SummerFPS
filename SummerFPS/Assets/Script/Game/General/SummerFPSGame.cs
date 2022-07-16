@@ -12,11 +12,10 @@ namespace Script.Game
         public const string PLAYER_LIVES = "PlayerLives";
         public const string PLAYER_READY = "IsPlayerReady";
         public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
-        public const float ASTEROIDS_MIN_SPAWN_TIME = 5.0f;
-        public const float ASTEROIDS_MAX_SPAWN_TIME = 10.0f;
-
-        public const float PLAYER_RESPAWN_TIME = 4.0f;
-
+        
+        public const string NOT_PLAYING_GAME = "notPlaying";
+        public const string PLAYING_GAME = "playing";
+        
         public const int PLAYER_MAX_LIVES = 3;
         
         public static Color GetColor(int colorChoice)

@@ -1,9 +1,9 @@
 ﻿
-using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
 using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
+using Script.Game;
 using UnityEngine;
 
 namespace Com.LGUplus.Homework.Minifps
@@ -82,11 +82,8 @@ namespace Com.LGUplus.Homework.Minifps
 
         public void OnCreateRoomButtonClicked()
         {
-            RoomOptions options = new RoomOptions {MaxPlayers = 4, PlayerTtl = 10000 };
-            options.CustomRoomProperties = new Hashtable (){{"roomstatus", "notplaying"}};
-            options.CustomRoomPropertiesForLobby = new string[] {"roomstatus"};
-            
-            PhotonNetwork.CreateRoom(options.GetHashCode().ToString(), options, null);
+            RoomOptions ropts = new RoomOptions() { IsOpen = true, IsVisible = true, MaxPlayers = 4 };
+            PhotonNetwork.CreateRoom(ropts.GetHashCode().ToString(), ropts,null);
         }
 
         
@@ -122,7 +119,7 @@ namespace Com.LGUplus.Homework.Minifps
         {
             foreach (RoomInfo info in roomList)
             {
-                if (!info.IsOpen || !info.IsVisible || info.RemovedFromList)
+                if (!info.IsVisible || info.RemovedFromList)
                 {
                     if (cachedRoomList.ContainsKey(info.Name))
                     {
@@ -153,37 +150,31 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(RoomListEntryPrefab);
                 entry.transform.SetParent(RoomListContent.transform);
                 entry.transform.localScale = Vector3.one;
-                 
                 
-                Hashtable cp = info.CustomProperties;
-
-                foreach (var VARIABLE in info.CustomProperties)
-                {
-                    Debug.Log("key " + VARIABLE.Key.ToString());
-                    Debug.Log("--- ");
-                    Debug.Log("VALUE " + VARIABLE.Value.ToString());
-                    
-                }
-                string test = (string)cp["roomstatus"];
+                var gamestatus = GetGameStatus(info);
                 
-                
-                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,test);
+                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,gamestatus);
                 
                 roomListEntries.Add(info.Name, entry);
             }
         }
 
-        public override void OnRoomPropertiesUpdate(Hashtable propertiesThatChanged)
+        private static string GetGameStatus(RoomInfo info)
         {
-            foreach (var VARIABLE in propertiesThatChanged)
-            {
-                Debug.Log("OnRoomPropertiesUpdate key " + VARIABLE.Key.ToString());
-                Debug.Log("--- ");
-                Debug.Log(" OnRoomPropertiesUpdate VALUE " + VARIABLE.Value.ToString());
-                    
-            }
-        }
+            string gamestatus = SummerFPSGame.NOT_PLAYING_GAME;
 
+            if (info.IsOpen == false)
+            {
+                gamestatus = SummerFPSGame.PLAYING_GAME;
+            }
+            else
+            {
+                gamestatus = SummerFPSGame.NOT_PLAYING_GAME;
+            }
+
+            return gamestatus;
+        }
+        
         public override void OnDisconnected(DisconnectCause cause)
         {
             CommonUtils.LoadScene("TitleScene");

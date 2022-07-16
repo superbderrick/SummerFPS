@@ -142,15 +142,12 @@ namespace Com.LGUplus.Homework.Minifps
         
         public void OnStartGameButtonClicked()
         {
-            Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
-            cp["roomstatus"] = "playing";
-            Hashtable cps = PhotonNetwork.CurrentRoom.CustomProperties;
-            
-            PhotonNetwork.CurrentRoom.IsOpen = true;
-            PhotonNetwork.CurrentRoom.IsVisible = true;
-
-            PhotonNetwork.LoadLevel("GameScene");
-           // PhotonNetwork.LoadLevel("TargetGame");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+                PhotonNetwork.CurrentRoom.IsVisible = true;
+                PhotonNetwork.LoadLevel("GameScene");    
+            }
         }
 
         #endregion

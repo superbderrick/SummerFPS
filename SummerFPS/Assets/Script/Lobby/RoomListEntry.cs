@@ -1,5 +1,6 @@
 ﻿using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
+using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,7 @@ namespace Com.LGUplus.Homework.Minifps
         {
             JoinRoomButton.onClick.AddListener(() =>
             {
-                if (!isFullPlayers)
+                if (!isFullPlayers && RoomStatusText.text.Equals(SummerFPSGame.NOT_PLAYING_GAME))
                 {
                     if (PhotonNetwork.InLobby)
                     {
@@ -28,6 +29,11 @@ namespace Com.LGUplus.Homework.Minifps
                     
                     PhotonNetwork.JoinRoom(roomName);  
                    
+                }
+                else
+                {
+                    Debug.Log("can't use a room");
+                    //dialog
                 }
                 
                 
