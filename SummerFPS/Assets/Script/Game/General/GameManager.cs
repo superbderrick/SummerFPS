@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (isEnded)
                 return;
-            Check_Timer();
+            CheckTimer();
         }
 
         public override void OnEnable()
@@ -57,19 +57,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
             
-            Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
-            if (cp!=null)
-            {
-                Hashtable props1 = new Hashtable
-                {
-                    {"derrick", true}
-                };
-                PhotonNetwork.CurrentRoom.SetCustomProperties(props1);
-                cp["roomstatus"] = "playing";    
-            }
-            
-            
-            Reset_Timer();
+            ResetTimer();
         }
 
         public override void OnDisable()
@@ -86,8 +74,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     
         private IEnumerator EndOfGame(string winner, int score)
         {
-            
-
             while (resutOpenningTime > 0.0f)
             {
                 infoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, resutOpenningTime.ToString("n2"));
@@ -142,8 +128,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 return;
             }
 
-
-            // if there was no countdown yet, the master client (this one) waits until everyone loaded the level and sets a timer start
+            
             int startTimestamp;
             bool startTimeIsSet = CountdownTimer.TryGetStartTime(out startTimestamp);
 
@@ -265,15 +250,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             finishGame();
         }
         
-        private void Reset_Timer()
+        private void ResetTimer()
         {
             time_current = gameTime;
             gameTimeText.text = $"{time_current:N1}";
             isEnded = false;
-            Debug.Log("Start");
+            
         }
         
-        private void Check_Timer()
+        private void CheckTimer()
         {
             if (0 < time_current)
             {
@@ -285,6 +270,5 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 End_Timer();
             }
-            
         }
 }
