@@ -20,7 +20,7 @@ using Script.Game;
 
 namespace Com.LGUplus.Homework.Minifps
 {
-    public class SummerPlayerListEntry : MonoBehaviour
+    public class PlayerListEntry : MonoBehaviour
     {
         [Header("UI References")]
         public Text PlayerNameText;
@@ -47,7 +47,7 @@ namespace Com.LGUplus.Homework.Minifps
             }
             else
             {
-                Hashtable initialProps = new Hashtable() {{AsteroidsGame.PLAYER_READY, isPlayerReady}, {AsteroidsGame.PLAYER_LIVES, AsteroidsGame.PLAYER_MAX_LIVES}};
+                Hashtable initialProps = new Hashtable() {{SummerFPSGame.PLAYER_READY, isPlayerReady}, {SummerFPSGame.PLAYER_LIVES, SummerFPSGame.PLAYER_MAX_LIVES}};
                 PhotonNetwork.LocalPlayer.SetCustomProperties(initialProps);
                 PhotonNetwork.LocalPlayer.SetScore(0);
 
@@ -56,7 +56,7 @@ namespace Com.LGUplus.Homework.Minifps
                     isPlayerReady = !isPlayerReady;
                     SetPlayerReady(isPlayerReady);
 
-                    Hashtable props = new Hashtable() {{AsteroidsGame.PLAYER_READY, isPlayerReady}};
+                    Hashtable props = new Hashtable() {{SummerFPSGame.PLAYER_READY, isPlayerReady}};
                     PhotonNetwork.LocalPlayer.SetCustomProperties(props);
 
                     if (PhotonNetwork.IsMasterClient)

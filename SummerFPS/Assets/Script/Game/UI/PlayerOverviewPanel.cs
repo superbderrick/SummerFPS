@@ -9,6 +9,7 @@ using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
+using Script.Game;
 
 namespace Com.LGUplus.Homework.Minifps
 {
@@ -29,8 +30,8 @@ namespace Com.LGUplus.Homework.Minifps
                 GameObject entry = Instantiate(PlayerOverviewEntryPrefab);
                 entry.transform.SetParent(gameObject.transform);
                 entry.transform.localScale = Vector3.one;
-                entry.GetComponent<Text>().color = AsteroidsGame.GetColor(p.GetPlayerNumber());
-                entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}\nLives: {2}", p.NickName, p.GetScore(), AsteroidsGame.PLAYER_MAX_LIVES);
+                entry.GetComponent<Text>().color = SummerFPSGame.GetColor(p.GetPlayerNumber());
+                entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}\nLives: {2}", p.NickName, p.GetScore(), SummerFPSGame.PLAYER_MAX_LIVES);
 
                 playerListEntries.Add(p.ActorNumber, entry);
             }
@@ -57,7 +58,7 @@ namespace Com.LGUplus.Homework.Minifps
             {
                 entry.GetComponent<Text>().text = string.Format("{0}\nScore: {1}\nLives: {2}", targetPlayer.NickName,
                     targetPlayer.GetScore(),
-                    targetPlayer.CustomProperties[AsteroidsGame.PLAYER_LIVES]);
+                    targetPlayer.CustomProperties[SummerFPSGame.PLAYER_LIVES]);
             }
         }
 

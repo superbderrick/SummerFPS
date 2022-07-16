@@ -1,12 +1,14 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class SingleShotGun : Gun
 {
-	[SerializeField] Camera cam;
-
+	[SerializeField] Camera fpsCamera;
+	public float range = 100f;
+	public float damage = 500f;
+	public float impactForce = 30f;
+	
 	PhotonView PV;
 
 	void Awake()
@@ -16,18 +18,38 @@ public class SingleShotGun : Gun
 
 	public override void Use()
 	{
+		Debug.Log("Use called");
 		Shoot();
 	}
 
 	void Shoot()
 	{
-		Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
-		ray.origin = cam.transform.position;
-		if(Physics.Raycast(ray, out RaycastHit hit))
+		Debug.Log("Shoot called");
+		
+		RaycastHit hit;
+		if(Physics.Raycast(fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
 		{
-			hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
-			PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+			Debug.Log("Raycast");
+			// Debug.Log(hit.transform.name);
+			//
+			// Health target = hit.transform.GetComponent<Health>();
+			// if(target != null)
+			// {
+			// 	Debug.Log("Raycast22");
+			// 	target.TakeDamage(damage);
+			// }
+
+
 		}
+		
+		
+		// Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+		// ray.origin = cam.transform.position;
+		// if(Physics.Raycast(ray, out RaycastHit hit))
+		// {
+		// 	hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+		// 	PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+		// }
 	}
 
 	[PunRPC]

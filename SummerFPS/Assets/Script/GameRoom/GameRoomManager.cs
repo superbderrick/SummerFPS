@@ -4,7 +4,7 @@ using Photon.Realtime;
 using System.Collections.Generic;
 using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
-using Photon.Pun.Demo.Asteroids;
+using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -48,12 +48,12 @@ namespace Com.LGUplus.Homework.Minifps
                 entry.transform.SetParent(InsideRoomPanel.transform);
                 entry.transform.localScale = Vector3.one;
                 p.NickName = CommonUtils.GetPlayerName(); 
-                entry.GetComponent<SummerPlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
+                entry.GetComponent<PlayerListEntry>().Initialize(p.ActorNumber, p.NickName);
             
                 object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
-                    entry.GetComponent<SummerPlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
+                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool)isPlayerReady);
                 }
             
                 playerListEntries.Add(p.ActorNumber, entry);
@@ -63,7 +63,7 @@ namespace Com.LGUplus.Homework.Minifps
             
             Hashtable props = new Hashtable
             {
-                { AsteroidsGame.PLAYER_LOADED_LEVEL, false }
+                { SummerFPSGame.PLAYER_LOADED_LEVEL, false }
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
         }
@@ -91,7 +91,7 @@ namespace Com.LGUplus.Homework.Minifps
             GameObject entry = Instantiate(PlayerListEntryPrefab);
             entry.transform.SetParent(InsideRoomPanel.transform);
             entry.transform.localScale = Vector3.one;
-            entry.GetComponent<SummerPlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
+            entry.GetComponent<PlayerListEntry>().Initialize(newPlayer.ActorNumber, newPlayer.NickName);
 
             playerListEntries.Add(newPlayer.ActorNumber, entry);
 
@@ -122,9 +122,9 @@ namespace Com.LGUplus.Homework.Minifps
             if (playerListEntries.TryGetValue(targetPlayer.ActorNumber, out entry))
             {
                 object isPlayerReady;
-                if (changedProps.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
+                if (changedProps.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
-                    entry.GetComponent<SummerPlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
+                    entry.GetComponent<PlayerListEntry>().SetPlayerReady((bool) isPlayerReady);
                 }
             }
 
@@ -142,17 +142,12 @@ namespace Com.LGUplus.Homework.Minifps
         
         public void OnStartGameButtonClicked()
         {
-            PhotonNetwork.CurrentRoom.IsOpen = true;
-            PhotonNetwork.CurrentRoom.IsVisible = true;
-            
-            Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
-
-            print(CP["키1"]);
-
-            CP["키1"] = "summerderrick";
-           
-            PhotonNetwork.LoadLevel("GameScene");
-           // PhotonNetwork.LoadLevel("TargetGame");
+            if (PhotonNetwork.IsMasterClient)
+            {
+                PhotonNetwork.CurrentRoom.IsOpen = false;
+                PhotonNetwork.CurrentRoom.IsVisible = true;
+                PhotonNetwork.LoadLevel("GameScene");    
+            }
         }
 
         #endregion
@@ -167,7 +162,7 @@ namespace Com.LGUplus.Homework.Minifps
             foreach (Player p in PhotonNetwork.PlayerList)
             {
                 object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_READY, out isPlayerReady))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
                     if (!(bool) isPlayerReady)
                     {

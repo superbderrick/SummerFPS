@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if (isEnded)
                 return;
-            Check_Timer();
+            CheckTimer();
         }
 
         public override void OnEnable()
@@ -53,11 +53,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             Hashtable props = new Hashtable
             {
-                {AsteroidsGame.PLAYER_LOADED_LEVEL, true}
+                {SummerFPSGame.PLAYER_LOADED_LEVEL, true}
             };
             PhotonNetwork.LocalPlayer.SetCustomProperties(props);
             
-            Reset_Timer();
+            ResetTimer();
         }
 
         public override void OnDisable()
@@ -74,8 +74,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     
         private IEnumerator EndOfGame(string winner, int score)
         {
-            
-
             while (resutOpenningTime > 0.0f)
             {
                 infoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, resutOpenningTime.ToString("n2"));
@@ -130,8 +128,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 return;
             }
 
-
-            // if there was no countdown yet, the master client (this one) waits until everyone loaded the level and sets a timer start
+            
             int startTimestamp;
             bool startTimeIsSet = CountdownTimer.TryGetStartTime(out startTimestamp);
 
@@ -161,8 +158,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameStatusText.text = SummerFPSGame.START_GAME;
             
             MakePlayerManager();
-           // MakeEnemyManager();
-            
+
             if (PhotonNetwork.IsMasterClient)
             {
               //  StartCoroutine(SpawnAsteroid());
@@ -173,11 +169,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "PlayerManager"), Vector3.zero, Quaternion.identity);
         }
-        private static void MakeEnemyManager()
-        {
-            PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "EnemyManager"), Vector3.zero, Quaternion.identity);
-        }
-
+    
         private bool CheckAllPlayerLoadedLevel()
         {
             gameStatusText.text = SummerFPSGame.CHECK_LOADING;
@@ -186,7 +178,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 object playerLoadedLevel;
 
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LOADED_LEVEL, out playerLoadedLevel))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_LOADED_LEVEL, out playerLoadedLevel))
                 {
                     if ((bool) playerLoadedLevel)
                     {
@@ -207,7 +199,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             foreach (Player p in PhotonNetwork.PlayerList)
             {
                 object lives;
-                if (p.CustomProperties.TryGetValue(AsteroidsGame.PLAYER_LIVES, out lives))
+                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_LIVES, out lives))
                 {
                     if ((int) lives > 0)
                     {
@@ -257,28 +249,25 @@ public class GameManager : MonoBehaviourPunCallbacks
             isEnded = true;
             finishGame();
         }
-
-
-        private void Reset_Timer()
+        
+        private void ResetTimer()
         {
             time_current = gameTime;
             gameTimeText.text = $"{time_current:N1}";
             isEnded = false;
-            Debug.Log("Start");
+            
         }
         
-        private void Check_Timer()
+        private void CheckTimer()
         {
             if (0 < time_current)
             {
                 time_current -= Time.deltaTime;
                 gameTimeText.text = $"{time_current:N1}";
-                Debug.Log(time_current);
             }
             else if (!isEnded)
             {
                 End_Timer();
             }
-            
         }
 }
