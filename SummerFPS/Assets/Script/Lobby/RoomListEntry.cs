@@ -44,9 +44,9 @@ namespace Com.LGUplus.Homework.Minifps
         {
             roomName = name;
 
-            RoomNameText.text = name;
-            RoomPlayersText.text = currentPlayers + " / " + maxPlayers;
-            RoomStatusText.text = gameStatus;
+            RoomNameText.text = CommonUtils.GetStringMessage("RoomName: ", name);
+            RoomPlayersText.text = CommonUtils.GetStringMessage(currentPlayers.ToString(),maxPlayers.ToString() , "/" , "Members : ");
+            RoomStatusText.text = CommonUtils.GetStringMessage("Game Status: ", gameStatus); 
 
             CheckFullPlayerCount(currentPlayers, maxPlayers);
             

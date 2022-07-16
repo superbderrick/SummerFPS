@@ -153,7 +153,7 @@ namespace Com.LGUplus.Homework.Minifps
                 
                 var gamestatus = GetGameStatus(info);
                 
-                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,gamestatus);
+                entry.GetComponent<RoomListEntry>().Initialize(info.Name, (byte)info.PlayerCount, info.MaxPlayers,gamestatus.ToString());
                 
                 roomListEntries.Add(info.Name, entry);
             }
