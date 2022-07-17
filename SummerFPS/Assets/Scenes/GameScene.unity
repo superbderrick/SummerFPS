@@ -772,12 +772,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 393c723404ac74c4887afb598412bca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  infoText: {fileID: 659505081}
-  gameStatusText: {fileID: 174463532}
-  gameTimeText: {fileID: 1455916826}
-  monsterHPText: {fileID: 310265808}
-  gameTime: 100
-  resutOpenningTime: 3
+  InfoText: {fileID: 659505081}
+  GameStatusText: {fileID: 174463532}
+  GameTimeText: {fileID: 1455916826}
+  MonsterHPText: {fileID: 310265808}
+  GameTime: 60
+  ResultOpenningTime: 3
 --- !u!1 &310265806
 GameObject:
   m_ObjectHideFlags: 0
@@ -1869,7 +1869,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1089979184}
   - component: {fileID: 1089979183}
-  - component: {fileID: 1089979182}
   m_Layer: 0
   m_Name: BulletPool
   m_TagString: Untagged
@@ -1877,19 +1876,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1089979182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1089979181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e210e0b0d21854ec0b45f8ec527c4b97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BulletsInWorld: {fileID: 0}
 --- !u!114 &1089979183
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,12 +11,8 @@ public class Health : MonoBehaviour
     public Text monsterHP;
     public void TakeDamage(int amount)
     {
-        Debug.Log("TakeDamage " + amount);
-
         PhotonView.RPC("TakeHitRPC", RpcTarget.All, amount);
-        
     }
-
     private void Start()
     {
         monsterHP.text = CommonUtils.GetStringMessage("Monster HP : " , health.ToString());
@@ -31,9 +27,7 @@ public class Health : MonoBehaviour
     [PunRPC]
     public void TakeHitRPC(int amount)
     {
-        
         health -= amount;
-
         monsterHP.text = CommonUtils.GetStringMessage("Monster HP : " , health.ToString());
         
         if(health <= 0)
