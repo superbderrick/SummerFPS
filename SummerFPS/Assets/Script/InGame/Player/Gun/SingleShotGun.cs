@@ -1,4 +1,5 @@
-﻿using Photon.Pun;
+﻿using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class SingleShotGun : Gun
@@ -6,6 +7,8 @@ public class SingleShotGun : Gun
     [SerializeField] Camera cam;
 
     PhotonView PV;
+    private bool canShoot = true;
+    [SerializeField, Range(0, 1f)] private float fireRate;
 
     void Awake()
     {
@@ -15,7 +18,22 @@ public class SingleShotGun : Gun
     public override void Use()
     {
         Shoot();
+        StartCoroutine(Fire());
     }
+    
+    private IEnumerator Fire()
+    {
+        canShoot = false;
+        yield return new WaitForSeconds(fireRate);
+        
+        var shot = ShotPool.Instance.Get();
+        shot.transform.position = transform.position;
+        shot.transform.rotation = transform.rotation;
+        shot.gameObject.SetActive(true);
+        canShoot = true;
+    }
+    
+    
 
     void Shoot()
     {

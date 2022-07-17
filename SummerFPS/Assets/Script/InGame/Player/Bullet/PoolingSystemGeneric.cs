@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
+
 public abstract class PoolingSystemGeneric<T> : MonoBehaviour where T: Component
 {
     [SerializeField]
     private T prefab;
 [SerializeField]
     private int maxObjects;
-    [SerializeField] private TMP_Text text;
+    [SerializeField] private Text text;
     public static PoolingSystemGeneric<T> Instance {get;private set;}
     private Queue<T> objects = new Queue<T>();
 

@@ -29,7 +29,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         public float gameTime = 60f;
         public float resutOpenningTime = 3.0f;
-        private int remainMonsterHP = 2000;
 
         #region UNITY
 
