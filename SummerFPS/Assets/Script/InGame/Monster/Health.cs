@@ -1,17 +1,24 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
     public float health = 2000f;
     public PhotonView PhotonView;
-    
+    public Text monsterHP;
     public void TakeDamage(float amount)
     {
         Debug.Log("TakeDamage " + amount);
 
         PhotonView.RPC("TakeHitRPC", RpcTarget.All, amount);
         
+    }
+
+    private void Start()
+    {
+        monsterHP.text = "Monster HP : " + health;
     }
 
     void Die()
@@ -27,6 +34,8 @@ public class Health : MonoBehaviour
         Debug.Log("current health " + health);
         
         health -= amount;
+
+        monsterHP.text = "Monster HP : " + health;
         
         if(health <= 0f)
         {

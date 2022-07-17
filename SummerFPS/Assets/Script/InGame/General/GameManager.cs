@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         public Text infoText;
         public Text gameStatusText;
         public Text gameTimeText;
+        public Text monsterHPText;
+        public GameObject monster;
         
         private float time_current;
         private bool isEnded;
