@@ -3,7 +3,6 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using Script.Game;
 using UnityEngine;
-using UnityEngine.UI;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class PlayerController : MonoBehaviourPunCallbacks
@@ -28,9 +27,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 	Rigidbody rb;
 
 	PhotonView PV;
-
-	const float maxHealth = 100f;
-	float currentHealth = maxHealth;
+	
 
 	PlayerManager playerManager;
 
@@ -182,23 +179,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
 		rb.MovePosition(rb.position + transform.TransformDirection(moveAmount) * Time.fixedDeltaTime);
 	}
-
-	public void TakeDamage(float damage)
-	{
-		PV.RPC(nameof(RPC_TakeDamage), PV.Owner, damage);
-	}
-
-	[PunRPC]
-	void RPC_TakeDamage(float damage, PhotonMessageInfo info)
-	{
-		currentHealth -= damage;
-
-		if(currentHealth <= 0)
-		{
-			Die();
-			PlayerManager.Find(info.Sender).GetKill();
-		}
-	}
+	
 
 	void Die()
 	{

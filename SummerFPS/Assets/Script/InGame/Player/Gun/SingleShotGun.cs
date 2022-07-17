@@ -41,10 +41,10 @@ public class SingleShotGun : Gun
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
             hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
-            Health enemyHealth = hit.transform.GetComponent<Health>();
-            if(enemyHealth != null)
+            MonsterManager enemyMonsterManager = hit.transform.GetComponent<MonsterManager>();
+            if(enemyMonsterManager != null)
             {
-                enemyHealth.TakeDamage(power);
+                enemyMonsterManager.TakeDamage(power);
             }
             
         }

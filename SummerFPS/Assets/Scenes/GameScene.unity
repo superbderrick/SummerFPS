@@ -1440,9 +1440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a10d9d5e62f4f76bdc18fb693a6b31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2000
+  Health: 2000
   PhotonView: {fileID: 842856712}
-  monsterHP: {fileID: 310265808}
+  MonsterHPText: {fileID: 310265808}
 --- !u!114 &842856712
 MonoBehaviour:
   m_ObjectHideFlags: 0
