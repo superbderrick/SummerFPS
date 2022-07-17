@@ -36,7 +36,7 @@ namespace Com.LGUplus.Homework.Minifps
         private static string NETWORK_STATE_CONNECTED = "Connected";
         private static string NETWORK_STATE_DISCONNECTED = "DisConnected";
         private static string NETWORK_STATE_CONNECTING = "Connecting";
-        private static string ERRORMESSAGETEXT_TITLE = "Error Message :" ;
+        private static string ERROR_MESSAGE_TEXT_TITLE = "Error Message :" ;
         
         void Awake()
         {
@@ -46,6 +46,7 @@ namespace Com.LGUplus.Homework.Minifps
         
         void Update()
         {
+	        // Exception handling according to any keyboard inputs
             if (Input.anyKeyDown) 
             {
 	            UpdateConnectionStatus(NETWORK_STATE_CONNECTING);
@@ -63,6 +64,7 @@ namespace Com.LGUplus.Homework.Minifps
         
         public void Connect()
         {
+	        //Connect to Photon Server
 	        if (PhotonNetwork.IsConnected)
 	        {
 		        CommonUtils.LoadScene("LobbyScene");
@@ -76,6 +78,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public override void OnConnectedToMaster()
         {
+	        //Server connection complete
 	        isConnected = true;
 	        UpdateConnectionStatus(NETWORK_STATE_CONNECTED);
 	        CommonUtils.LoadScene("LobbyScene");
@@ -83,6 +86,7 @@ namespace Com.LGUplus.Homework.Minifps
         
         public override void OnDisconnected(DisconnectCause cause)
         {
+	        // API called on server failure
 	        isConnected = false;
 	        UpdateConnectionStatus(NETWORK_STATE_DISCONNECTED);
 	        UpdateErrorStatus(cause.ToString());
@@ -95,7 +99,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         private void UpdateErrorStatus(string message)
         {
-	        networkErrorTitleText.text = ERRORMESSAGETEXT_TITLE;
+	        networkErrorTitleText.text = ERROR_MESSAGE_TEXT_TITLE;
 	        networkErrorText.text = CommonUtils.GetErrorMessage(message);
         }
     }
