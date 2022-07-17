@@ -777,7 +777,7 @@ MonoBehaviour:
   gameStatusText: {fileID: 174463532}
   gameTimeText: {fileID: 1455916826}
   monsterHPText: {fileID: 310265808}
-  gameTime: 10
+  gameTime: 100
   resutOpenningTime: 3
 --- !u!1 &310265806
 GameObject:
@@ -1918,7 +1918,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1074345225
 RectTransform:
   m_ObjectHideFlags: 0

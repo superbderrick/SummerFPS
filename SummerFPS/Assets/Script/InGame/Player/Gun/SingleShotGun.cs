@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 
@@ -10,9 +11,19 @@ public class SingleShotGun : Gun
     private bool canShoot = true;
     [SerializeField, Range(0, 1f)] private float fireRate;
 
+    private Vector3 ScreenCenter;
+    public GameObject cross;
+    
+    
+    
     void Awake()
     {
         PV = GetComponent<PhotonView>();
+    }
+
+    private void Start()
+    {
+        ScreenCenter = new Vector3(Camera.main.pixelWidth / 2, Camera.main.pixelHeight / 2);
     }
 
     public override void Use()
@@ -26,7 +37,10 @@ public class SingleShotGun : Gun
         canShoot = false;
         yield return new WaitForSeconds(fireRate);
         var shot = ShotPool.Instance.Get();
-        shot.transform.position = transform.position;
+        shot.transform.position = cross.transform.position;
+        Debug.Log("shot.transform.position x" +shot.transform.position.x);
+        Debug.Log("shot.transform.position y " +shot.transform.position.x);
+        Debug.Log("shot.transform.position z" +shot.transform.position.x);
         shot.transform.rotation = transform.rotation;
         shot.gameObject.SetActive(true);
         canShoot = true;
