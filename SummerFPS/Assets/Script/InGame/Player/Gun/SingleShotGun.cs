@@ -32,13 +32,14 @@ public class SingleShotGun : Gun
                 enemyHealth.TakeDamage(500f);
             }
             
-            PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal);
+//            PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal );
         }
     }
 
     [PunRPC]
-    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal)
+    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal , RaycastHit hit)
     {
+        
         Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
         if(colliders.Length != 0)
         {
@@ -47,4 +48,6 @@ public class SingleShotGun : Gun
             bulletImpactObj.transform.SetParent(colliders[0].transform);
         }
     }
+    
+
 }
