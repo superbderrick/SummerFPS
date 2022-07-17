@@ -1,7 +1,3 @@
-
-
-
-using System.Text;
 using Com.LGUplus.Homework.Minifps.Utills;
 using UnityEngine;
 using UnityEngine.UI;
@@ -84,6 +80,7 @@ namespace Com.LGUplus.Homework.Minifps
 	        CommonUtils.LoadScene("LobbyScene");
         }
         
+        //Called after disconnecting from the Photon server
         public override void OnDisconnected(DisconnectCause cause)
         {
 	        // API called on server failure

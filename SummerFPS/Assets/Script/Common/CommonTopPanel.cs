@@ -6,7 +6,7 @@ namespace Com.LGUplus.Homework.Minifps
 {
     public class CommonTopPanel : MonoBehaviour
     {
-        private readonly string connectionStatusMessage = "    Connection Status: ";
+        private readonly string connectionStatusMessage = "Connection Status:";
 
         [Header("UI References")]
         public Text ConnectionStatusText;
@@ -15,6 +15,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         public void Update()
         {
+            //Continuously check server status
             ConnectionStatusText.text = connectionStatusMessage + PhotonNetwork.NetworkClientState;
         }
 
