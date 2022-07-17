@@ -1,4 +1,6 @@
-﻿using Photon.Pun;
+﻿using System;
+using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class SingleShotGun : Gun
@@ -6,7 +8,9 @@ public class SingleShotGun : Gun
     [SerializeField] Camera cam;
 
     PhotonView PV;
-
+    
+    [SerializeField, Range(0, 1f)] private float fireRate;
+    
     void Awake()
     {
         PV = GetComponent<PhotonView>();
@@ -14,38 +18,45 @@ public class SingleShotGun : Gun
 
     public override void Use()
     {
-        Shoot();
+        StartCoroutine(Fire());
     }
-
-    void Shoot()
+    
+    private IEnumerator Fire()
     {
+        // canShoot = false;
+         yield return new WaitForSeconds(0.125f);
+         PV.RPC("TakeHitRPC", RpcTarget.All);
+    }
+    
+    [PunRPC]
+    public IEnumerator TakeHitRPC()
+    {
+        var shot = ShotPool.Instance.Get();
+        
+        Debug.Log("transform.position derrick x " + transform.position.x);
+        Debug.Log("transform.position derrick y " + transform.position.y);
+        Debug.Log("transform.position derrick z " + transform.position.z);
+        
+        shot.transform.position = transform.position;
+        shot.transform.rotation = transform.rotation;
+        shot.gameObject.SetActive(true);
+        
+        
         Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         ray.origin = cam.transform.position;
         if(Physics.Raycast(ray, out RaycastHit hit))
         {
-            Debug.Log("raytranfrom name " + hit.transform);
             hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
             Health enemyHealth = hit.transform.GetComponent<Health>();
             if(enemyHealth != null)
             {
-                Debug.Log("Shoot ");
                 enemyHealth.TakeDamage(500);
             }
             
         }
-    }
 
-    [PunRPC]
-    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal , RaycastHit hit)
-    {
-        
-        Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
-        if(colliders.Length != 0)
-        {
-            GameObject bulletImpactObj = Instantiate(bulletImpactPrefab, hitPosition + hitNormal * 0.001f, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletImpactPrefab.transform.rotation);
-            Destroy(bulletImpactObj, 10f);
-            bulletImpactObj.transform.SetParent(colliders[0].transform);
-        }
+        yield return null;
+
     }
     
 

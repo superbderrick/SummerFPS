@@ -204,16 +204,6 @@ namespace Photon.Pun.Demo.Asteroids
         
         public void OnLeaveGameButtonClicked()
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                //test
-                string test;
-            }
-            else
-            {
-                  //test  
-                  string test;
-            }
             PhotonNetwork.LeaveRoom();   
             
         }
