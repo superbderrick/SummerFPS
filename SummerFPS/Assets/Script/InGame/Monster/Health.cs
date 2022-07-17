@@ -24,13 +24,13 @@ public class Health : MonoBehaviour
     public void TakeHitRPC(float amount)
     {
         Debug.Log("damage " + amount);
-        Debug.Log("current health " + amount);
+        Debug.Log("current health " + health);
         
         health -= amount;
         
         if(health <= 0f)
         {
-            Debug.Log("die " + amount);
+            Debug.Log("die " + health);
             Die();
         }
     }
