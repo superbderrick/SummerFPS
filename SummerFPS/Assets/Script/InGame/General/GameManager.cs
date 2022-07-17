@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         public Text gameStatusText;
         public Text gameTimeText;
         public Text monsterHPText;
-        public GameObject monster;
         
         private float time_current;
         private bool isEnded;
@@ -95,8 +94,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
                 resutOpenningTime -= Time.deltaTime;
             }
-            gameStatusText.text = SummerFPSGame.FINISH_GAME;
-            
+
+            gameStatusText.text = CommonUtils.GetStringMessage("게임 상태 :", SummerFPSGame.FINISH_GAME);
+
             PhotonNetwork.LeaveRoom();
         }
 
@@ -152,7 +152,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     if (!startTimeIsSet)
                     {
-                        gameStatusText.text = SummerFPSGame.PREPARE_GAME;
+                        gameStatusText.text = CommonUtils.GetStringMessage("게임 상태", SummerFPSGame.PREPARE_GAME); 
                         CountdownTimer.SetStartTime();
                     }
                 }
@@ -168,8 +168,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         private void StartGame()
         {
-            gameStatusText.text = SummerFPSGame.START_GAME;
             
+            gameStatusText.text = CommonUtils.GetStringMessage("게임 상태 :", SummerFPSGame.START_GAME);
             MakePlayerManager();
             
         }
@@ -181,7 +181,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     
         private bool CheckAllPlayerLoadedLevel()
         {
-            gameStatusText.text = SummerFPSGame.CHECK_LOADING;
+            gameStatusText.text = CommonUtils.GetStringMessage("게임 상태 :", SummerFPSGame.CHECK_LOADING);
+            
             
             foreach (Player p in PhotonNetwork.PlayerList)
             {
@@ -227,13 +228,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         private void finishGame()
         {
             Debug.Log("MonsterHP " +monsterHPText.text);
-            //string str = "Hello, World";
-            //string str1 = str.Substring(str.IndexOf(',') + 1).Trim();
-
-            string remainMonsterHP =
-                monsterHPText.text.ToString().Substring(monsterHPText.text.ToString().IndexOf(":") + 1);
-            int finalResult =  int.Parse(remainMonsterHP);
             
+            var finalResult = GetFinalResult();
             
             if (PhotonNetwork.IsMasterClient)
             {
@@ -255,6 +251,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(EndOfGame(winner, monsterHP));
         }
 
+        private int GetFinalResult()
+        {
+            string remainMonsterHP =
+                monsterHPText.text.ToString().Substring(monsterHPText.text.ToString().IndexOf(":") + 1);
+            int finalResult = int.Parse(remainMonsterHP);
+            return finalResult;
+        }
+
         private void OnCountdownTimerIsExpired()
         {
             StartGame();
@@ -263,7 +267,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         private void End_Timer()
         {
             time_current = 0;
-            gameTimeText.text = $"{time_current:N1}";
+            gameTimeText.text = CommonUtils.GetStringMessage("게임 시간 :" , $"{time_current:N1}") ;
             isEnded = true;
             finishGame();
         }
@@ -271,7 +275,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         private void ResetTimer()
         {
             time_current = gameTime;
-            gameTimeText.text = $"{time_current:N1}";
+            gameTimeText.text = gameTimeText.text = CommonUtils.GetStringMessage("게임 시간 :" , $"{time_current:N1}") ;
             isEnded = false;
             
         }
@@ -281,7 +285,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (0 < time_current)
             {
                 time_current -= Time.deltaTime;
-                gameTimeText.text = $"{time_current:N1}";
+                gameTimeText.text = gameTimeText.text = CommonUtils.GetStringMessage("게임 시간 :" , $"{time_current:N1}") ;
             }
             else if (!isEnded)
             {

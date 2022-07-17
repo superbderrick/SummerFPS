@@ -1,4 +1,5 @@
 using System;
+using Com.LGUplus.Homework.Minifps.Utills;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ public class Health : MonoBehaviour
 
     private void Start()
     {
-        monsterHP.text = "Monster HP : " + health;
+        monsterHP.text = CommonUtils.GetStringMessage("Monster HP : " , health.ToString());
     }
 
     void Die()
@@ -30,12 +31,10 @@ public class Health : MonoBehaviour
     [PunRPC]
     public void TakeHitRPC(int amount)
     {
-        Debug.Log("damage " + amount);
-        Debug.Log("current health " + health);
         
         health -= amount;
 
-        monsterHP.text = "Monster HP : " + health;
+        monsterHP.text = CommonUtils.GetStringMessage("Monster HP : " , health.ToString());
         
         if(health <= 0)
         {
