@@ -25,7 +25,6 @@ public class SingleShotGun : Gun
     {
         canShoot = false;
         yield return new WaitForSeconds(fireRate);
-        
         var shot = ShotPool.Instance.Get();
         shot.transform.position = transform.position;
         shot.transform.rotation = transform.rotation;

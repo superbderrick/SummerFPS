@@ -11,11 +11,6 @@ public class BulletPooled : MonoBehaviour
         rb = GetComponent<Rigidbody>();
                   rb.velocity =rb.transform.forward* BulletSpeed * Time.deltaTime*10;
     }
-
-    private void FixedUpdate()
-    {
-    }
-
     private IEnumerator BulledDie()
     {
         yield return new WaitForSeconds(lifetime);

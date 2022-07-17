@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 167052bcd0e4f40af977410ebb2a21ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BulletSpeed: 200
+  BulletSpeed: 20
   lifetime: 1
 --- !u!33 &7571428919288022807
 MeshFilter:
