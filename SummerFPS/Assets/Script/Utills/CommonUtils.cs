@@ -1,7 +1,6 @@
-using System;
+
 using System.Text;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 using Random = UnityEngine.Random;
 
 
@@ -11,7 +10,6 @@ namespace Com.LGUplus.Homework.Minifps.Utills
     {
         private static string NETWORK_FAILURE = "네트워크 문제로 접속 실패 \n";
         private static string PLAYER = "Player ";
-        
         
         public static void LoadScene(string sceneName){
             SceneManager.LoadScene(sceneName);

@@ -14,11 +14,10 @@ namespace Com.LGUplus.Homework.Minifps
     {
         [Header("Inside Room Panel")]
         public GameObject InsideRoomPanel;
-
         public Button StartGameButton;
         public Button RoomNameButton;
-        
         public GameObject PlayerListEntryPrefab;
+        
         private Dictionary<int, GameObject> playerListEntries;
 
         #region UNITY
@@ -142,6 +141,7 @@ namespace Com.LGUplus.Homework.Minifps
         
         public void OnStartGameButtonClicked()
         {
+            //The moderator starts and manages the game
             if (PhotonNetwork.IsMasterClient)
             {
                 PhotonNetwork.CurrentRoom.IsOpen = false;
@@ -152,6 +152,7 @@ namespace Com.LGUplus.Homework.Minifps
 
         #endregion
 
+        ////The moderator checks the status of the players 
         private bool CheckPlayersReady()
         {
             if (!PhotonNetwork.IsMasterClient)
@@ -159,10 +160,10 @@ namespace Com.LGUplus.Homework.Minifps
                 return false;
             }
 
-            foreach (Player p in PhotonNetwork.PlayerList)
+            foreach (Player player in PhotonNetwork.PlayerList)
             {
                 object isPlayerReady;
-                if (p.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
+                if (player.CustomProperties.TryGetValue(SummerFPSGame.PLAYER_READY, out isPlayerReady))
                 {
                     if (!(bool) isPlayerReady)
                     {
@@ -183,6 +184,7 @@ namespace Com.LGUplus.Homework.Minifps
             StartGameButton.gameObject.SetActive(CheckPlayersReady());
         }
         
+        //Called after disconnecting from the Photon server
         public override void OnDisconnected(DisconnectCause cause)
         {
             CommonUtils.LoadScene("TitleScene");
