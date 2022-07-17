@@ -18,7 +18,7 @@ public class SingleShotGun : Gun
 
     public override void Use()
     {
-        Shoot();
+        //Shoot();
         StartCoroutine(Fire());
     }
     
@@ -32,8 +32,10 @@ public class SingleShotGun : Gun
         
         shot.gameObject.SetActive(true);
         canShoot = true;
+        PV.RPC("TakeHitRPC", RpcTarget.All);
+        
+        
     }
-    
     
 
     void Shoot()
@@ -54,17 +56,35 @@ public class SingleShotGun : Gun
         }
     }
 
+  
     [PunRPC]
-    void RPC_Shoot(Vector3 hitPosition, Vector3 hitNormal , RaycastHit hit)
+    public IEnumerator TakeHitRPC()
     {
+        canShoot = false;
+        yield return new WaitForSeconds(fireRate);
+        var shot = ShotPool.Instance.Get();
+        shot.transform.position = new Vector3(transform.position.x - 0.1f,transform.position.y,transform.position.z);
+        shot.transform.rotation = transform.rotation;
         
-        Collider[] colliders = Physics.OverlapSphere(hitPosition, 0.3f);
-        if(colliders.Length != 0)
+        shot.gameObject.SetActive(true);
+        canShoot = true;
+        
+          
+        Ray ray = cam.ViewportPointToRay(new Vector3(0.5f, 0.5f));
+        ray.origin = cam.transform.position;
+        if(Physics.Raycast(ray, out RaycastHit hit))
         {
-            GameObject bulletImpactObj = Instantiate(bulletImpactPrefab, hitPosition + hitNormal * 0.001f, Quaternion.LookRotation(hitNormal, Vector3.up) * bulletImpactPrefab.transform.rotation);
-            Destroy(bulletImpactObj, 10f);
-            bulletImpactObj.transform.SetParent(colliders[0].transform);
+            Debug.Log("raytranfrom name " + hit.transform);
+            hit.collider.gameObject.GetComponent<IDamageable>()?.TakeDamage(((GunInfo)itemInfo).damage);
+            Health enemyHealth = hit.transform.GetComponent<Health>();
+            if(enemyHealth != null)
+            {
+                Debug.Log("Shoot ");
+                enemyHealth.TakeDamage(500);
+            }
+            
         }
+       
     }
     
 
