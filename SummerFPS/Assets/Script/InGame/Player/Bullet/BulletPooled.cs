@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections;
 public class BulletPooled : MonoBehaviour
 {
-
     [SerializeField] private float BulletSpeed;
     [SerializeField] private float lifetime;
     private Rigidbody rb;
@@ -11,7 +10,6 @@ public class BulletPooled : MonoBehaviour
         StartCoroutine(BulledDie());
         rb = GetComponent<Rigidbody>();
                   rb.velocity =rb.transform.forward* BulletSpeed * Time.deltaTime*10;
-
     }
 
     private void FixedUpdate()
