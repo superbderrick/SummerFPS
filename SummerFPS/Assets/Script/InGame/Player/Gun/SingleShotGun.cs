@@ -29,10 +29,9 @@ public class SingleShotGun : Gun
             if(enemyHealth != null)
             {
                 Debug.Log("Shoot ");
-                enemyHealth.TakeDamage(500f);
+                enemyHealth.TakeDamage(500);
             }
             
-//            PV.RPC("RPC_Shoot", RpcTarget.All, hit.point, hit.normal );
         }
     }
 

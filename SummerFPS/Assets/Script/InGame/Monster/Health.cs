@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour
 {
-    public float health = 2000f;
+    public int health = 2000;
     public PhotonView PhotonView;
     public Text monsterHP;
-    public void TakeDamage(float amount)
+    public void TakeDamage(int amount)
     {
         Debug.Log("TakeDamage " + amount);
 
@@ -28,7 +28,7 @@ public class Health : MonoBehaviour
     }
     
     [PunRPC]
-    public void TakeHitRPC(float amount)
+    public void TakeHitRPC(int amount)
     {
         Debug.Log("damage " + amount);
         Debug.Log("current health " + health);
@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
 
         monsterHP.text = "Monster HP : " + health;
         
-        if(health <= 0f)
+        if(health <= 0)
         {
             Debug.Log("die " + health);
             Die();

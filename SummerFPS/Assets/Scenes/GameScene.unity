@@ -874,7 +874,7 @@ MonoBehaviour:
   gameTimeText: {fileID: 1455916826}
   monsterHPText: {fileID: 310265808}
   monster: {fileID: 1058579452}
-  gameTime: 180
+  gameTime: 4
   resutOpenningTime: 3
 --- !u!1 &310265806
 GameObject:

@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         public float gameTime = 60f;
         public float resutOpenningTime = 3.0f;
+        private int remainMonsterHP = 2000;
 
         #region UNITY
 
@@ -74,11 +75,22 @@ public class GameManager : MonoBehaviourPunCallbacks
         #region COROUTINES
 
     
-        private IEnumerator EndOfGame(string winner, int score)
+        private IEnumerator EndOfGame(string winner, int remainMonsterHP)
         {
             while (resutOpenningTime > 0.0f)
             {
-                infoText.text = string.Format("Player {0} won with {1} points.\n\n\nReturning to login screen in {2} seconds.", winner, score, resutOpenningTime.ToString("n2"));
+                string winnerMessage = " Lose the game"; 
+                if (remainMonsterHP > 0)
+                {
+                    winnerMessage = "Lose the game";
+                }
+                else
+                {
+                    winnerMessage = "Win the game";
+                }
+                
+                infoText.text = string.Format("Player {0}  {3} with {1} monster remain HPs.\n\n\nReturning to login screen in {2} seconds.",
+                    winner, remainMonsterHP, resutOpenningTime.ToString("n2") , winnerMessage);
 
                 yield return new WaitForEndOfFrame();
 
@@ -160,11 +172,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             gameStatusText.text = SummerFPSGame.START_GAME;
             
             MakePlayerManager();
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-              //  StartCoroutine(SpawnAsteroid());
-            }
+            
         }
 
         private static void MakePlayerManager()
@@ -219,24 +227,33 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         private void finishGame()
         {
+            Debug.Log("MonsterHP " +monsterHPText.text);
+            //string str = "Hello, World";
+            //string str1 = str.Substring(str.IndexOf(',') + 1).Trim();
+
+            string remainMonsterHP =
+                monsterHPText.text.ToString().Substring(monsterHPText.text.ToString().IndexOf(":") + 1);
+            int finalResult =  int.Parse(remainMonsterHP);
+            
+            
             if (PhotonNetwork.IsMasterClient)
             {
                 StopAllCoroutines();
             }
 
             string winner = "";
-            int score = -1;
+            int monsterHP = -1;
 
             foreach (Player p in PhotonNetwork.PlayerList)
             {
-                if (p.GetScore() > score)
+                if (p.GetScore() > monsterHP)
                 {
                     winner = p.NickName;
-                    score = p.GetScore();
+                    monsterHP = finalResult;
                 }
             }
 
-            StartCoroutine(EndOfGame(winner, score));
+            StartCoroutine(EndOfGame(winner, monsterHP));
         }
 
         private void OnCountdownTimerIsExpired()
