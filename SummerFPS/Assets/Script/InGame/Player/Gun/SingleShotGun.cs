@@ -27,7 +27,7 @@ public class SingleShotGun : Gun
         canShoot = false;
         yield return new WaitForSeconds(fireRate);
         var shot = ShotPool.Instance.Get();
-        shot.transform.position = transform.position;
+        shot.transform.position = new Vector3(transform.position.x - 0.1f,transform.position.y,transform.position.z);
         shot.transform.rotation = transform.rotation;
         
         shot.gameObject.SetActive(true);
