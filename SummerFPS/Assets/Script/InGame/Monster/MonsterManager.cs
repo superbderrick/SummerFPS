@@ -4,8 +4,12 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
+public delegate void IntEventHandler(int value);
+
 public class MonsterManager : MonoBehaviour
 {
+    public static IntEventHandler onHpChange;
+    
     public int Health = 2000;
     public PhotonView PhotonView;
     public Text MonsterHPText;
@@ -21,13 +25,15 @@ public class MonsterManager : MonoBehaviour
     void Die()
     {
         Debug.Log("Die ");
-        Destroy(gameObject);
+        gameObject.SetActive(false);
+        // Destroy(gameObject);
     }
     
     [PunRPC]
     public void TakeHitRPC(int amount)
     {
         Health -= amount;
+        onHpChange?.Invoke(Health);
         MonsterHPText.text = CommonUtils.GetStringMessage("Monster HP : " , Health.ToString());
         
         if(Health <= 0)

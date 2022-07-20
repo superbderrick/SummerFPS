@@ -17,7 +17,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         public Text InfoText;
         public Text GameStatusText;
         public Text GameTimeText;
-        public Text MonsterHPText;
+        // public Text MonsterHPText;
+        public MonsterManager monster;
         
         private float currentTime;
         private bool endedTimer;
@@ -46,8 +47,9 @@ public class GameManager : MonoBehaviourPunCallbacks
             base.OnEnable();
 
             CountdownTimer.OnCountdownTimerHasExpired += OnCountdownTimerIsExpired;
+            // MonsterManager.onHpChange +=
         }
-
+        
         public void Start()
         {
             Hashtable props = new Hashtable
@@ -204,8 +206,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         private int GetFinalResult()
         {
-            string remainMonsterHP =
-                MonsterHPText.text.ToString().Substring(MonsterHPText.text.ToString().IndexOf(":") + 1);
+            string remainMonsterHP = monster.Health.ToString();
             int finalResult = int.Parse(remainMonsterHP);
             return finalResult;
         }

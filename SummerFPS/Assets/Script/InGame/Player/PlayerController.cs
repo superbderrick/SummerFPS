@@ -103,6 +103,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
 		{
 			items[itemIndex].Use();
 		}
+		
+		if(Input.GetMouseButtonDown(1))
+		{
+			items[itemIndex].Reload();
+		}
 
 		if(transform.position.y < -10f) // Die if you fall out of the world
 		{

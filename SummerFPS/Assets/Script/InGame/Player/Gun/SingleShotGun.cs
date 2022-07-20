@@ -14,6 +14,7 @@ public class SingleShotGun : Gun
     [SerializeField]
     private int power;
     public Transform spawnPoint;
+    public Animator anim;
 
     void Awake()
     {
@@ -23,6 +24,11 @@ public class SingleShotGun : Gun
     public override void Use()
     {
         StartCoroutine(Fire());
+    }
+
+    public override void Reload()
+    {
+        anim.Play("Riffle Reload");
     }
 
     private IEnumerator Fire()

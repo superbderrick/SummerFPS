@@ -40,7 +40,6 @@ namespace Com.LGUplus.Homework.Minifps
         //Called for any update of the room-listing while in a lobby (InLobby) on the Master Server and Update RoomList infos
         public override void OnRoomListUpdate(List<RoomInfo> roomList)
         {
-            
             ClearRoomListView();
             UpdateCachedRoomList(roomList);
             UpdateRoomListView();

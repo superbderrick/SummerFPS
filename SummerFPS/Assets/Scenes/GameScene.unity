@@ -775,7 +775,7 @@ MonoBehaviour:
   InfoText: {fileID: 659505081}
   GameStatusText: {fileID: 174463532}
   GameTimeText: {fileID: 1455916826}
-  MonsterHPText: {fileID: 310265808}
+  monster: {fileID: 842856711}
   GameTime: 60
   ResultOpenningTime: 3
 --- !u!1 &310265806
