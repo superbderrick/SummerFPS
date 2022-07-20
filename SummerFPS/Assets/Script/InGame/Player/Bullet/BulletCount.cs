@@ -11,7 +11,5 @@ public class BulletCount:MonoBehaviour
         var bullets = FindObjectsOfType<BulletPooled>();
         if(bullets != null)
             BulletsInWorld.text ="In World = "+bullets.Length.ToString();
-
-            
     }
 }

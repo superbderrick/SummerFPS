@@ -1,7 +1,6 @@
 ﻿
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 
 public abstract class PoolingSystemGeneric<T> : MonoBehaviour where T: Component
@@ -16,13 +15,13 @@ public abstract class PoolingSystemGeneric<T> : MonoBehaviour where T: Component
 
     private void Awake() 
     {
-     Instance = this;   
+        Instance = this;   
     }
 
     private void CountUpdate() {
-        if(text != null)
-        text.text = "Objects in Pool = "+objects.Count.ToString("D2");
-
+        // object pooling debug code
+        // if(text != null)
+        // text.text = "Objects in Pool = "+objects.Count.ToString("D2");
     }
    
     public T Get()
@@ -55,6 +54,5 @@ public abstract class PoolingSystemGeneric<T> : MonoBehaviour where T: Component
         newObject.gameObject.SetActive(false);
         objects.Enqueue(newObject); 
         }
-     
     }
 }

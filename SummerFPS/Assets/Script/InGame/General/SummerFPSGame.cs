@@ -8,14 +8,11 @@ namespace Script.Game
         public const string PREPARE_GAME = "게임준비 3초";
         public const string START_GAME = "게임 시작";
         public const string FINISH_GAME = "게임 종료";
-        
         public const string PLAYER_LIVES = "PlayerLives";
         public const string PLAYER_READY = "IsPlayerReady";
         public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";
-        
         public const string NOT_PLAYING_GAME = "notPlaying";
         public const string PLAYING_GAME = "playing";
-        
         public const int PLAYER_MAX_LIVES = 3;
         
         public static Color GetColor(int colorChoice)

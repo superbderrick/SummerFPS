@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Pun.Demo.Asteroids;
 using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using Script.Game;

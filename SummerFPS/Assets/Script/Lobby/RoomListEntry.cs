@@ -21,6 +21,7 @@ namespace Com.LGUplus.Homework.Minifps
         {
             JoinRoomButton.onClick.AddListener(() =>
             {
+                // Check the total number of players in the game and check the progress of the game
                 if (!isFullPlayers && !isPlaying)
                 {
                     if (PhotonNetwork.InLobby)
@@ -28,16 +29,14 @@ namespace Com.LGUplus.Homework.Minifps
                         PhotonNetwork.LeaveLobby();
                     }
                     
-                    PhotonNetwork.JoinRoom(roomName);  
-                   
+                    PhotonNetwork.JoinRoom(roomName);
                 }
                 else
                 {
                     Debug.Log("can't use a room");
                     //dialog
                 }
-                
-                
+ 
             });
         }
 
@@ -67,6 +66,7 @@ namespace Com.LGUplus.Homework.Minifps
             }
         }
 
+        // Check the total number of players
         private void CheckFullPlayerCount(byte currentPlayers, byte maxPlayers)
         {
             if (currentPlayers == maxPlayers)

@@ -1,5 +1,4 @@
-﻿using System;
-using ExitGames.Client.Photon;
+﻿using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
 using Com.LGUplus.Homework.Minifps.Utills;

@@ -1,14 +1,4 @@
-﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="PlayerListEntry.cs" company="Exit Games GmbH">
-//   Part of: Asteroid Demo,
-// </copyright>
-// <summary>
-//  Player List Entry
-// </summary>
-// <author>developer@exitgames.com</author>
-// --------------------------------------------------------------------------------------------------------------------
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 using ExitGames.Client.Photon;
@@ -24,14 +14,15 @@ namespace Com.LGUplus.Homework.Minifps
     {
         [Header("UI References")]
         public Text PlayerNameText;
-
         public Image PlayerColorImage;
         public Button PlayerReadyButton;
         public Image PlayerReadyImage;
 
         private int ownerId;
         private bool isPlayerReady;
-
+        private static string READY_WITH_Exclamation = "Ready!";
+        private static string READY_WITH_Question = "Ready?";
+        
         #region UNITY
 
         public void OnEnable()
@@ -79,7 +70,6 @@ namespace Com.LGUplus.Homework.Minifps
             ownerId = playerId;
             PlayerNameText.text = playerName;
         }
-
         private void OnPlayerNumberingChanged()
         {
             foreach (Player p in PhotonNetwork.PlayerList)
@@ -90,10 +80,9 @@ namespace Com.LGUplus.Homework.Minifps
                 }
             }
         }
-
         public void SetPlayerReady(bool playerReady)
         {
-            PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? "Ready!" : "Ready?";
+            PlayerReadyButton.GetComponentInChildren<Text>().text = playerReady ? READY_WITH_Exclamation : READY_WITH_Question;
             PlayerReadyImage.enabled = playerReady;
         }
     }

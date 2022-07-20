@@ -4,22 +4,18 @@ using Photon.Pun;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Health : MonoBehaviour
+public class MonsterManager : MonoBehaviour
 {
-    public int health = 2000;
+    public int Health = 2000;
     public PhotonView PhotonView;
-    public Text monsterHP;
+    public Text MonsterHPText;
     public void TakeDamage(int amount)
     {
-        Debug.Log("TakeDamage " + amount);
-
         PhotonView.RPC("TakeHitRPC", RpcTarget.All, amount);
-        
     }
-
     private void Start()
     {
-        monsterHP.text = CommonUtils.GetStringMessage("Monster HP : " , health.ToString());
+        MonsterHPText.text = CommonUtils.GetStringMessage("Monster HP : " , Health.ToString());
     }
 
     void Die()
@@ -31,14 +27,12 @@ public class Health : MonoBehaviour
     [PunRPC]
     public void TakeHitRPC(int amount)
     {
+        Health -= amount;
+        MonsterHPText.text = CommonUtils.GetStringMessage("Monster HP : " , Health.ToString());
         
-        health -= amount;
-
-        monsterHP.text = CommonUtils.GetStringMessage("Monster HP : " , health.ToString());
-        
-        if(health <= 0)
+        if(Health <= 0)
         {
-            Debug.Log("die " + health);
+            Debug.Log("die " + Health);
             Die();
         }
     }
