@@ -18,12 +18,12 @@ You can learn the following through this project
 
 ### References
 
-#### Documents
+### Documents
 https://doc-api.photonengine.com/en/pun/v2/
 
-#### Github sources
+####Github sources
 https://github.com/hedersonleeh/Prueba-FPS-Unity-ObjectPooling
 https://github.com/RugbugRedfern/FPS-Game-Tutorial
 
-#### Youtube
+### Youtube
 https://www.youtube.com/watch?v=zPZK7C5_BQo&list=PLhsVv9Uw1WzjI8fEBjBQpTyXNZ6Yp1ZLw
