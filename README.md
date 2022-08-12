@@ -1,9 +1,14 @@
 # SummerFPS
 
-This is a basic fps game project using photon2 API and unity
-You can learn the basic concepts of Photon, such as rooms and lobbies, and how to configure and manage game scenes
-And you can know the basic FPS operation method. Shooting, character movement, character synchronization, object pooling, etc..
-It's not a commercial game, I just made it to study.
+This is a basic fps game project using photon2 API and unity, It's not a commercial game, I just made it to study.
+
+
+You can learn the following through this project
+- Basic concepts of Photon, such as rooms and lobbies, and how to configure and manage game scenes
+- Basic FPS operation method Shooting, character movement, character synchronization, object pooling, etc
+
+
+
 
 
 ### Demo
