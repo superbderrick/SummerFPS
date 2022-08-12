@@ -10,7 +10,7 @@ using Photon.Realtime;
 using Photon.Pun.UtilityScripts;
 using Script.Game;
 
-namespace Com.LGUplus.Homework.Minifps
+namespace Jinyoung.dev.summerfps.gameroom
 {
     public class PlayerOverviewPanel : MonoBehaviourPunCallbacks
     {

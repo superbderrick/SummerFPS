@@ -1,7 +1,7 @@
 
 using System.Collections;
 using System.IO;
-using Com.LGUplus.Homework.Minifps.Utills;
+using Jinyoung.dev.summerfps.Utills;
 using Photon.Pun;
 using Photon.Pun.Demo.Asteroids;
 using Photon.Pun.UtilityScripts;

@@ -1,10 +1,10 @@
-﻿using Com.LGUplus.Homework.Minifps.Utills;
+﻿using Jinyoung.dev.summerfps.Utills;
 using Photon.Pun;
 using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Com.LGUplus.Homework.Minifps
+namespace Jinyoung.dev.summerfps.lobby
 {
     public class RoomListEntry : MonoBehaviour
     {

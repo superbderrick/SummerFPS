@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 
-namespace Com.LGUplus.Homework.Minifps.Utills
+namespace Jinyoung.dev.summerfps.Utills
 {
     public class CommonUtils
     {

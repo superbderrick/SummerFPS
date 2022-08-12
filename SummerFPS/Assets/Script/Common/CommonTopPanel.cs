@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Com.LGUplus.Homework.Minifps
+namespace Jinyoung.dev.summerfps.common
 {
     public class CommonTopPanel : MonoBehaviour
     {

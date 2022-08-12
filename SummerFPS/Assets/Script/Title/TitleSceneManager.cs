@@ -1,10 +1,10 @@
-using Com.LGUplus.Homework.Minifps.Utills;
+using Jinyoung.dev.summerfps.Utills;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-namespace Com.LGUplus.Homework.Minifps
+namespace Jinyoung.dev.summerfps.title
 {
     public class TitleSceneManager : MonoBehaviourPunCallbacks
     {

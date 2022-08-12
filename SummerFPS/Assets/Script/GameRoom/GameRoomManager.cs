@@ -1,13 +1,13 @@
 ﻿using ExitGames.Client.Photon;
 using Photon.Realtime;
 using System.Collections.Generic;
-using Com.LGUplus.Homework.Minifps.Utills;
+using Jinyoung.dev.summerfps.Utills;
 using Photon.Pun;
 using Script.Game;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Com.LGUplus.Homework.Minifps
+namespace Jinyoung.dev.summerfps.gameroom
 {
     public class GameRoomManager : MonoBehaviourPunCallbacks
     {
