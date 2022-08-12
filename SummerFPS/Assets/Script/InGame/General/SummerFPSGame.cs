@@ -4,10 +4,10 @@ namespace Script.Game
 {
     public class SummerFPSGame
     {
-        public const string CHECK_LOADING = "로딩 체크중";
-        public const string PREPARE_GAME = "게임준비 3초";
-        public const string START_GAME = "게임 시작";
-        public const string FINISH_GAME = "게임 종료";
+        public const string CHECK_LOADING = "Check loading";
+        public const string PREPARE_GAME = "Prepare Game";
+        public const string START_GAME = "Game Start";
+        public const string FINISH_GAME = "Game Finish";
         public const string PLAYER_LIVES = "PlayerLives";
         public const string PLAYER_READY = "IsPlayerReady";
         public const string PLAYER_LOADED_LEVEL = "PlayerLoadedLevel";

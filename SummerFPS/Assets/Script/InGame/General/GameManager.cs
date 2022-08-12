@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 ResultOpenningTime -= Time.deltaTime;
             }
 
-            GameStatusText.text = CommonUtils.GetStringMessage("게임 상태 :", SummerFPSGame.FINISH_GAME);
+            GameStatusText.text = CommonUtils.GetStringMessage("Game Satus :", SummerFPSGame.FINISH_GAME);
 
             PhotonNetwork.LeaveRoom();
         }
@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 {
                     if (!startTimeIsSet)
                     {
-                        GameStatusText.text = CommonUtils.GetStringMessage("게임 상태", SummerFPSGame.PREPARE_GAME); 
+                        GameStatusText.text = CommonUtils.GetStringMessage("Game Status", SummerFPSGame.PREPARE_GAME); 
                         CountdownTimer.SetStartTime();
                     }
                 }
@@ -148,7 +148,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         
         private void StartGame()
         {
-            GameStatusText.text = CommonUtils.GetStringMessage("게임 상태 :", SummerFPSGame.START_GAME);
+            GameStatusText.text = CommonUtils.GetStringMessage("Game Status :", SummerFPSGame.START_GAME);
             MakePlayerManager();
         }
 
@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     
         private bool CheckAllPlayerLoadedLevel()
         {
-            GameStatusText.text = CommonUtils.GetStringMessage("게임 상태 :", SummerFPSGame.CHECK_LOADING);
+            GameStatusText.text = CommonUtils.GetStringMessage("Game Status :", SummerFPSGame.CHECK_LOADING);
             
             foreach (Player p in PhotonNetwork.PlayerList)
             {
@@ -219,7 +219,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         private void End_Timer()
         {
             currentTime = 0;
-            GameTimeText.text = CommonUtils.GetStringMessage("게임 시간 :" , $"{currentTime:N1}") ;
+            GameTimeText.text = CommonUtils.GetStringMessage("Game Time :" , $"{currentTime:N1}") ;
             endedTimer = true;
             FinishGame();
         }
@@ -227,7 +227,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         private void ResetTimer()
         {
             currentTime = GameTime;
-            GameTimeText.text = GameTimeText.text = CommonUtils.GetStringMessage("게임 시간 :" , $"{currentTime:N1}") ;
+            GameTimeText.text = GameTimeText.text = CommonUtils.GetStringMessage("Game Time :" , $"{currentTime:N1}") ;
             endedTimer = false;
             
         }
@@ -236,7 +236,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             if (0 < currentTime)
             {
                 currentTime -= Time.deltaTime;
-                GameTimeText.text = GameTimeText.text = CommonUtils.GetStringMessage("게임 시간 :" , $"{currentTime:N1}") ;
+                GameTimeText.text = GameTimeText.text = CommonUtils.GetStringMessage("Game Time :" , $"{currentTime:N1}") ;
             }
             else if (!endedTimer)
             {

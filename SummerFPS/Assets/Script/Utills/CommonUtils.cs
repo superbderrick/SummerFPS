@@ -8,7 +8,7 @@ namespace Jinyoung.dev.summerfps.Utills
 {
     public class CommonUtils
     {
-        private static string NETWORK_FAILURE = "네트워크 문제로 접속 실패 \n";
+        private static string NETWORK_FAILURE = "Network Problem \n";
         private static string PLAYER = "Player ";
         
         public static void LoadScene(string sceneName){
