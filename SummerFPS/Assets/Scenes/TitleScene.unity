@@ -510,7 +510,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Connection \uC0C1\uD0DC :"
+  m_Text: 'Connection Status :'
 --- !u!222 &751230635
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uBB34\uD0A4\uB098 \uB20C\uB7EC\uC8FC\uC138\uC694"
+  m_Text: Please input any keys
 --- !u!222 &1558663923
 CanvasRenderer:
   m_ObjectHideFlags: 0
